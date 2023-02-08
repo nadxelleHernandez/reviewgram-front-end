@@ -1,5 +1,9 @@
-# Getting Started with Create React App
+# Reviewgram front-end in React 
+Repo for front-end of reviewgram - a full stack webpage for finding reviews and ratings of TV shows and movies
 
+Uses axios to made API calls
+
+# Created with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
