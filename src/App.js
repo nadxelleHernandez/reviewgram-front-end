@@ -4,11 +4,14 @@ import axios from "axios";
 import Search from "./components/search";
 import TopMovies from "./components/topmovies";
 import TopTVShows from "./components/toptvshows";
+import SearchResults from "./components/searchResults";
+const baseURL = "http://127.0.0.1:5000";
 
 function App() {
   const [currentSearch, setCurrentSearch] = useState("");
   const [searchData, setSearchData] = useState({});
   const [topMoviesData, setTopMoviesData] = useState({});
+  const [topTVShowsData, setTopTVShowsData] = useState({});
 
   const setSearchQuery = (search_for) => {
     console.log(search_for);
@@ -18,9 +21,9 @@ function App() {
   useEffect(() => {
     console.log(currentSearch);
     axios
-      .get(`http://127.0.0.1:5000/media/search?query=${currentSearch}`)
-      // .get(
-      //   `${process.env.REACT_APP_BACKEND_URL}/media/search?query=${currentSearch}`
+      .post(`${baseURL}/media/search`, { query: currentSearch })
+      // .post(
+      //   `${process.env.REACT_APP_BACKEND_URL}/media/search`, { query: currentSearch }
       // )
       .then((response) => {
         setSearchData(response.data);
@@ -33,11 +36,24 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:5000/media/top/movies`)
+      .get(`${baseURL}/media/top/movies`)
       // .get(`${process.env.REACT_APP_BACKEND_URL}/media/top/movies`)
       .then((response) => {
         console.log(response.data);
         setTopMoviesData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}/media/top/tvshows`)
+      // .get(`${process.env.REACT_APP_BACKEND_URL}/media/top/tvshows`)
+      .then((response) => {
+        console.log(response.data);
+        setTopTVShowsData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -50,15 +66,23 @@ function App() {
         <header>
           <h1>ReviewGram</h1>
         </header>
-
         <section>
           <Search createNewSearch={setSearchQuery}></Search>
+        </section>
+        <section>
+          <SearchResults searchData={searchData}></SearchResults>
         </section>
         <section>
           <TopMovies
             toggleShow={currentSearch === ""}
             topMoviesData={topMoviesData}
           ></TopMovies>
+        </section>
+        <section>
+          <TopTVShows
+            toggleShow={currentSearch === ""}
+            topTVShowsData={topTVShowsData}
+          ></TopTVShows>
         </section>
       </main>
     </div>

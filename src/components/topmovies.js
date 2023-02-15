@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const TopMovies = (toggleShow, topMoviesData) => {
   return <div>{/* <p>Top Movies{topMoviesData}</p> */}</div>;
