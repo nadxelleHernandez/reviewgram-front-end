@@ -9,12 +9,56 @@ import ErrorPage from "./routes/error-page";
 
 //const baseURL = "http://127.0.0.1:5000";
 const baseURL = process.env.REACT_APP_BACKEND_URL;
+let imageUrl = "";
+
+const getImagesUrlFromAPI = () => {
+  return axios
+    .get(`${baseURL}/media/image-url`)
+    .then((response) => {
+      console.log(response.data);
+      return response.data.configuration.base_url;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+    });
+};
+
+const getShowDataFromAPI = (tmdb_id) => {
+  return axios
+    .get(`${baseURL}/media/tv/${tmdb_id}`)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
 
 function App() {
   const [currentSearch, setCurrentSearch] = useState("");
   const [searchData, setSearchData] = useState({});
   const [topMoviesData, setTopMoviesData] = useState({});
   const [topTVShowsData, setTopTVShowsData] = useState({});
+
+  const getShowData = (tmdb_id, size) => {
+    return getShowDataFromAPI(tmdb_id).then((response) => {
+      if (response.statuscode !== 200) {
+        //manage error
+        console.log("Error");
+      } else {
+        const tvshow = response.tvshow;
+        tvshow.poster_url = `${imageUrl}/${size}${tvshow.poster_url}`;
+        console.log(tvshow);
+        return tvshow;
+      }
+    });
+  };
 
   const setSearchQuery = (search_for) => {
     console.log(search_for);
@@ -35,29 +79,32 @@ function App() {
   // }, [currentSearch]);
 
   useEffect(() => {
-    axios
-      .get(`${baseURL}/media/top/movies`)
-      .then((response) => {
-        console.log(response.data);
-        setTopMoviesData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getImagesUrlFromAPI().then((url) => {
+      imageUrl = url;
+    });
+    // axios
+    //   .get(`${baseURL}/media/top/movies`)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     setTopMoviesData(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`${baseURL}/media/top/tvshows`)
-      // .get(`${process.env.REACT_APP_BACKEND_URL}/media/top/tvshows`)
-      .then((response) => {
-        console.log(response.data);
-        setTopTVShowsData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${baseURL}/media/top/tvshows`)
+  //     // .get(`${process.env.REACT_APP_BACKEND_URL}/media/top/tvshows`)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setTopTVShowsData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   return (
     <Routes>
@@ -75,7 +122,10 @@ function App() {
         }
       />
       <Route path="/movie/:tmdb_id" element={<Movie />} />
-      <Route path="/tvshow/:tmdb_id" element={<TVshow />} />
+      <Route
+        path="/tvshow/:tmdb_id"
+        element={<TVshow getShowData={getShowData} />}
+      />
     </Routes>
   );
 }
