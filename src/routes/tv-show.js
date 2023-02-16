@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import TVShowData from "../models/TVShowData";
 import UserData from "../models/userData";
 //import Poster from "../components/media-components/poster";
-import { Img } from "react-image";
+//import { Img } from "react-image";
 
 const defaultShow = new TVShowData(
   0,
@@ -34,15 +34,14 @@ const TVshow = ({ getShowData, user }) => {
       console.log(data);
       setShow(data);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  //const show = getShowData(tmdb_id, "w185");
 
   return (
     <main>
       <section className="media">
         <h1>{show.name}</h1>
-        <Img src={show.poster_url} alt={show.name} />
+        <img src={show.poster_url} alt={show.name} />
         <section className="media-data">
           <h2>Details</h2>
           <ul>

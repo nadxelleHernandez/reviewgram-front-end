@@ -7,7 +7,6 @@ import Movie from "./routes/movie";
 import TVshow from "./routes/tv-show";
 import ErrorPage from "./routes/error-page";
 
-//const baseURL = "http://127.0.0.1:5000";
 const baseURL = process.env.REACT_APP_BACKEND_URL;
 let imageUrl = "";
 
@@ -40,6 +39,21 @@ const getShowDataFromAPI = (tmdb_id) => {
     });
 };
 
+const getMovieDataFromAPI = (tmdb_id) => {
+  return axios
+    .get(`${baseURL}/media/movies/${tmdb_id}`)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
 function App() {
   const [currentSearch, setCurrentSearch] = useState("");
   const [searchData, setSearchData] = useState({});
@@ -60,11 +74,24 @@ function App() {
     });
   };
 
+  const getMovieData = (tmdb_id, size) => {
+    return getMovieDataFromAPI(tmdb_id).then((response) => {
+      if (response.statuscode !== 200) {
+        //manage error
+        console.log("Error");
+      } else {
+        const movie = response.movie;
+        movie.poster_url = `${imageUrl}/${size}${movie.poster_url}`;
+        console.log(movie);
+        return movie;
+      }
+    });
+  };
+
   const getTopMoviesFromAPI = () => {
     return axios
       .get(`${baseURL}/media/top/movies`)
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((error) => {
@@ -123,12 +150,14 @@ function App() {
             setSearchQuery={setSearchQuery}
             searchData={searchData}
             currentSearch={currentSearch}
-            topMoviesData={topMoviesData}
             topTVShowsData={topTVShowsData}
           />
         }
       />
-      <Route path="/movie/:tmdb_id" element={<Movie />} />
+      <Route
+        path="/movie/:tmdb_id"
+        element={<Movie getMovieData={getMovieData} />}
+      />
       <Route
         path="/tvshow/:tmdb_id"
         element={<TVshow getShowData={getShowData} />}
