@@ -60,6 +60,21 @@ function App() {
     });
   };
 
+  const getTopMoviesFromAPI = () => {
+    return axios
+      .get(`${baseURL}/media/top/movies`)
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.response.statusText);
+        console.log(error.response.data);
+        return error.response.data;
+      });
+  };
+
   const setSearchQuery = (search_for) => {
     console.log(search_for);
     setCurrentSearch(search_for);
@@ -82,15 +97,6 @@ function App() {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
     });
-    // axios
-    //   .get(`${baseURL}/media/top/movies`)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     setTopMoviesData(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   }, []);
 
   // useEffect(() => {
@@ -113,6 +119,7 @@ function App() {
         errorElement={<ErrorPage />}
         element={
           <Main
+            getTopMovies={getTopMoviesFromAPI}
             setSearchQuery={setSearchQuery}
             searchData={searchData}
             currentSearch={currentSearch}

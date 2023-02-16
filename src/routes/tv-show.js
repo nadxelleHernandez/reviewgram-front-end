@@ -30,9 +30,7 @@ const TVshow = ({ getShowData, user }) => {
   const [show, setShow] = useState(defaultShow);
 
   useEffect(() => {
-    console.log("1");
     getShowData(tmdb_id, "w185").then((data) => {
-      console.log(4);
       console.log(data);
       setShow(data);
     });
