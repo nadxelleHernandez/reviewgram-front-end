@@ -4,10 +4,11 @@ import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import Main from "./routes/main";
 import Movie from "./routes/movie";
-import TVshow from "./routes/TVshow";
+import TVshow from "./routes/tv-show";
 import ErrorPage from "./routes/error-page";
 
-const baseURL = "http://127.0.0.1:5000";
+//const baseURL = "http://127.0.0.1:5000";
+const baseURL = process.env.REACT_APP_BACKEND_URL;
 
 function App() {
   const [currentSearch, setCurrentSearch] = useState("");
@@ -20,26 +21,22 @@ function App() {
     setCurrentSearch(search_for);
   };
 
-  useEffect(() => {
-    console.log(currentSearch);
-    axios
-      .post(`${baseURL}/media/search`, { query: currentSearch })
-      // .post(
-      //   `${process.env.REACT_APP_BACKEND_URL}/media/search`, { query: currentSearch }
-      // )
-      .then((response) => {
-        setSearchData(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-      });
-  }, [currentSearch]);
+  // useEffect(() => {
+  //   console.log(currentSearch);
+  //   axios
+  //     .post(`${baseURL}/media/search`, { query: currentSearch })
+  //     .then((response) => {
+  //       setSearchData(response.data);
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response.data.message);
+  //     });
+  // }, [currentSearch]);
 
   useEffect(() => {
     axios
       .get(`${baseURL}/media/top/movies`)
-      // .get(`${process.env.REACT_APP_BACKEND_URL}/media/top/movies`)
       .then((response) => {
         console.log(response.data);
         setTopMoviesData(response.data);

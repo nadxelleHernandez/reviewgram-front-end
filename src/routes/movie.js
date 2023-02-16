@@ -1,12 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import MovieData from "../models/movieData";
+import PropTypes from "prop-types";
 
-const Movie = (props) => {
+const Movie = ({ movie, getMovieData, user }) => {
   const { tmdb_id } = useParams();
   return (
     <main>
       <section className="media">
-        <h1>Movie Name</h1>
+        <h1>{movie.title}</h1>
         <image></image>
         <section className="media-data">
           <ul>
@@ -17,6 +19,12 @@ const Movie = (props) => {
       </section>
     </main>
   );
+};
+
+Movie.propTypes = {
+  movie: PropTypes.instanceOf(MovieData).isRequired,
+  getMovieData: PropTypes.func.isRequired,
+  user: PropTypes,
 };
 
 export default Movie;

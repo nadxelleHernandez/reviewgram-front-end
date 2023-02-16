@@ -25,6 +25,9 @@ const Main = ({
           <p>
             Fake result: <Link to="/tvshow/100088">Last of Us</Link>
           </p>
+          <p>
+            Fake result: <Link to="/movie/603">Matrix</Link>
+          </p>
           <SearchResults searchData={searchData}></SearchResults>
         </section>
         <section>
