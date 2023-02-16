@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import MovieData from "../models/movieData";
+import UserData from "../models/userData";
 import PropTypes from "prop-types";
 
 const Movie = ({ movie, getMovieData, user }) => {
@@ -24,7 +25,7 @@ const Movie = ({ movie, getMovieData, user }) => {
 Movie.propTypes = {
   movie: PropTypes.instanceOf(MovieData).isRequired,
   getMovieData: PropTypes.func.isRequired,
-  user: PropTypes,
+  user: PropTypes.instanceOf(UserData).isRequired,
 };
 
 export default Movie;
