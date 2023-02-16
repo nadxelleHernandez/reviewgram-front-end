@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Search from "../components/search";
 import TopTVShows from "../components/toptvshows";
 import TopMovies from "../components/topmovies";
@@ -6,10 +6,10 @@ import SearchResults from "../components/searchResults";
 import { Link } from "react-router-dom";
 
 const Main = ({
+  getTopMovies,
   setSearchQuery,
   searchData,
   currentSearch,
-  topMoviesData,
   topTVShowsData,
 }) => {
   return (
@@ -33,7 +33,7 @@ const Main = ({
         <section>
           <TopMovies
             toggleShow={currentSearch === ""}
-            topMoviesData={topMoviesData}
+            getTopMovies={getTopMovies}
           ></TopMovies>
         </section>
         <section>
