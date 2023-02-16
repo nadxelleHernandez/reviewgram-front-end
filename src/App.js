@@ -1,10 +1,12 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Search from "./components/search";
-import TopMovies from "./components/topmovies";
-import TopTVShows from "./components/toptvshows";
-import SearchResults from "./components/searchResults";
+import { Route, Routes } from "react-router-dom";
+import Main from "./routes/main";
+import Movie from "./routes/movie";
+import TVshow from "./routes/TVshow";
+import ErrorPage from "./routes/error-page";
+
 const baseURL = "http://127.0.0.1:5000";
 
 function App() {
@@ -61,31 +63,23 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <main className="main">
-        <header>
-          <h1>ReviewGram</h1>
-        </header>
-        <section>
-          <Search createNewSearch={setSearchQuery}></Search>
-        </section>
-        <section>
-          <SearchResults searchData={searchData}></SearchResults>
-        </section>
-        <section>
-          <TopMovies
-            toggleShow={currentSearch === ""}
+    <Routes>
+      <Route
+        path="/"
+        errorElement={<ErrorPage />}
+        element={
+          <Main
+            setSearchQuery={setSearchQuery}
+            searchData={searchData}
+            currentSearch={currentSearch}
             topMoviesData={topMoviesData}
-          ></TopMovies>
-        </section>
-        <section>
-          <TopTVShows
-            toggleShow={currentSearch === ""}
             topTVShowsData={topTVShowsData}
-          ></TopTVShows>
-        </section>
-      </main>
-    </div>
+          />
+        }
+      />
+      <Route path="/movie/:tmdb_id" element={<Movie />} />
+      <Route path="/tvshow/:tmdb_id" element={<TVshow />} />
+    </Routes>
   );
 }
 
