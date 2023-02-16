@@ -9,7 +9,7 @@ const Movie = ({ movie, getMovieData, user }) => {
   return (
     <main>
       <section className="media">
-        <h1>{movie.title}</h1>
+        <h1>Movie Title</h1>
         <image></image>
         <section className="media-data">
           <ul>
