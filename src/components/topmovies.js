@@ -28,17 +28,17 @@ const TopMovies = ({ toggleShow, getTopMovies }) => {
   });
 
   useEffect(() => {
-    console.log(getTopMovies);
     getTopMovies().then((result) => {
       console.log(result.movies);
       setTopMoviesData(result.movies);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
       <p>Top Movies</p>
-      <ul>{movieEntries}</ul>
+      <ol>{movieEntries}</ol>
     </div>
   );
 };

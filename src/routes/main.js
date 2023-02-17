@@ -3,15 +3,8 @@ import Search from "../components/search";
 import TopTVShows from "../components/toptvshows";
 import TopMovies from "../components/topmovies";
 import SearchResults from "../components/searchResults";
-import { Link } from "react-router-dom";
 
-const Main = ({
-  getTopMovies,
-  setSearchQuery,
-  searchData,
-  currentSearch,
-  topTVShowsData,
-}) => {
+const Main = ({ getTopMovies, getSearchData, searchData, topTVShowsData }) => {
   return (
     <main>
       <main className="main">
@@ -19,26 +12,20 @@ const Main = ({
           <h1>ReviewGram</h1>
         </header>
         <section>
-          <Search createNewSearch={setSearchQuery}></Search>
+          <Search createNewSearch={getSearchData}></Search>
         </section>
         <section>
-          <p>
-            Fake result: <Link to="/tvshow/100088">Last of Us</Link>
-          </p>
-          <p>
-            Fake result: <Link to="/movie/603">Matrix</Link>
-          </p>
           <SearchResults searchData={searchData}></SearchResults>
         </section>
         <section>
           <TopMovies
-            toggleShow={currentSearch === ""}
+            toggleShow={searchData === []}
             getTopMovies={getTopMovies}
           ></TopMovies>
         </section>
         <section>
           <TopTVShows
-            toggleShow={currentSearch === ""}
+            toggleShow={searchData === []}
             topTVShowsData={topTVShowsData}
           ></TopTVShows>
         </section>
