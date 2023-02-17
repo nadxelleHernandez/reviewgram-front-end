@@ -1,0 +1,28 @@
+#AppName {
+    text-align: center;
+    font-weight: 800;
+    font-style: italic;
+    font-family: 'Blippo', fantasy;
+}
+
+#Search {
+    text-align: center;
+}
+
+#Trending {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:100%;
+}
+.Media {
+    display:flex;
+    flex-direction: column;
+}
+
+.Media p {
+    text-align:center;
+    font-weight: 800;
+    margin-left: auto;
+    font-family: 'Blippo', fantasy;
+}

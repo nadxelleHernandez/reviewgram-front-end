@@ -71,8 +71,6 @@ const getSearchDataFromAPI = (query) => {
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-  const [topMoviesData, setTopMoviesData] = useState({});
-  const [topTVShowsData, setTopTVShowsData] = useState({});
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
@@ -120,6 +118,21 @@ function App() {
       });
   };
 
+  const getTopTVShowsFromAPI = () => {
+    return axios
+      .get(`${baseURL}/media/top/tvshows`)
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.response.statusText);
+        console.log(error.response.data);
+        return error.response.data;
+      });
+  };
+
   const getSearchData = (search_for) => {
     getSearchDataFromAPI(search_for).then((response) => {
       if (response.statuscode !== 200) {
@@ -138,19 +151,6 @@ function App() {
     });
   };
 
-  // useEffect(() => {
-  //   console.log(currentSearch);
-  //   axios
-  //     .post(`${baseURL}/media/search`, { query: currentSearch })
-  //     .then((response) => {
-  //       setSearchData(response.data);
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.response.data.message);
-  //     });
-  // }, [currentSearch]);
-
   useEffect(() => {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
@@ -168,7 +168,7 @@ function App() {
             getTopMovies={getTopMoviesFromAPI}
             getSearchData={getSearchData}
             searchData={searchData}
-            topTVShowsData={topTVShowsData}
+            getTopTVShows={getTopTVShowsFromAPI}
           />
         }
       />
@@ -177,7 +177,7 @@ function App() {
         element={<Movie getMovieData={getMovieData} />}
       />
       <Route
-        path="/tvshow/:tmdb_id"
+        path="/tv/:tmdb_id"
         element={<TVshow getShowData={getShowData} />}
       />
     </Routes>
