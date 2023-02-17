@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+  }
+#query {
+    width: 50%;
+    justify-content: center;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 2px 23px 2px 30px;
+}
+
+#query:hover, #query:focus {
+    border: 1.5px solid #009688;
+    background-color: white;
+  }
+
+#buttonSubmit {
+  width: 20%;
+  background: #2196F3;
+  color: white;
+  font-size: 15px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+
+}
+#buttonSubmit:hover {
+    background: #0b7dda;
+  }
+  

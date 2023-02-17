@@ -41,7 +41,7 @@ const TopTVShows = ({ toggleShow, getTopTVShows }) => {
 
   return (
     <div>
-      <p>Top TVShows</p>
+      <p>Top TV Shows</p>
       <ol>{tvshowEntries}</ol>
     </div>
   );
