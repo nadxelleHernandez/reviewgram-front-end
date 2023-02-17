@@ -177,7 +177,7 @@ function App() {
         element={<Movie getMovieData={getMovieData} />}
       />
       <Route
-        path="/tvshow/:tmdb_id"
+        path="/tv/:tmdb_id"
         element={<TVshow getShowData={getShowData} />}
       />
     </Routes>
