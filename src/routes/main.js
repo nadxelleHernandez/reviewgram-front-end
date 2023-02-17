@@ -4,7 +4,7 @@ import TopTVShows from "../components/toptvshows";
 import TopMovies from "../components/topmovies";
 import SearchResults from "../components/searchResults";
 
-const Main = ({ getTopMovies, getSearchData, searchData, topTVShowsData }) => {
+const Main = ({ getTopMovies, getSearchData, searchData, getTopTVShows }) => {
   return (
     <main>
       <main className="main">
@@ -26,7 +26,7 @@ const Main = ({ getTopMovies, getSearchData, searchData, topTVShowsData }) => {
         <section>
           <TopTVShows
             toggleShow={searchData === []}
-            topTVShowsData={topTVShowsData}
+            getTopTVShows={getTopTVShows}
           ></TopTVShows>
         </section>
       </main>
