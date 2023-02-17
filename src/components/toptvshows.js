@@ -22,7 +22,6 @@ const defaultTVShow = new TVShowData(
 
 const TopTVShows = ({ toggleShow, getTopTVShows }) => {
   const [topTVShowsData, setTopTVShowsData] = useState([defaultTVShow]);
-  console.log(topTVShowsData);
   const tvshowEntries = topTVShowsData.map((tvshow) => {
     return (
       <li key={tvshow.TMDB_id}>
@@ -33,7 +32,7 @@ const TopTVShows = ({ toggleShow, getTopTVShows }) => {
 
   useEffect(() => {
     getTopTVShows().then((result) => {
-      console.log(result.tvshows);
+      console.log("In getTopTVShows useEffect");
       setTopTVShowsData(result.tvshows);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

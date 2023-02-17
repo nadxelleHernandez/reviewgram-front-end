@@ -108,6 +108,7 @@ function App() {
     return axios
       .get(`${baseURL}/media/top/movies`)
       .then((response) => {
+        console.log("In getTopMoviesFromAPI");
         return response.data;
       })
       .catch((error) => {
@@ -122,7 +123,7 @@ function App() {
     return axios
       .get(`${baseURL}/media/top/tvshows`)
       .then((response) => {
-        console.log(response.data);
+        console.log("In getTopTVShowsFromAPI");
         return response.data;
       })
       .catch((error) => {
