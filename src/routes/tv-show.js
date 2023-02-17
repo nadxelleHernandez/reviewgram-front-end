@@ -31,7 +31,7 @@ const TVshow = ({ getShowData, user }) => {
 
   useEffect(() => {
     getShowData(tmdb_id, "w185").then((data) => {
-      console.log(data);
+      console.log("In TVshow route useEffect");
       setShow(data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

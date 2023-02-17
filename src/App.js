@@ -14,7 +14,7 @@ const getImagesUrlFromAPI = () => {
   return axios
     .get(`${baseURL}/media/image-url`)
     .then((response) => {
-      console.log(response.data);
+      console.log("In getImagesUrlFromAPI");
       return response.data.configuration.base_url;
     })
     .catch((error) => {
@@ -28,7 +28,7 @@ const getShowDataFromAPI = (tmdb_id) => {
   return axios
     .get(`${baseURL}/media/tv/${tmdb_id}`)
     .then((response) => {
-      console.log(response.data);
+      console.log("In getShowDataFromAPI");
       return response.data;
     })
     .catch((error) => {
@@ -43,7 +43,22 @@ const getMovieDataFromAPI = (tmdb_id) => {
   return axios
     .get(`${baseURL}/media/movies/${tmdb_id}`)
     .then((response) => {
-      console.log(response.data);
+      console.log("In getMovieDataFromAPI");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
+const getSearchDataFromAPI = (query) => {
+  return axios
+    .post(`${baseURL}/media/search`, { query })
+    .then((response) => {
+      console.log("In get SearchDataFromAPI");
       return response.data;
     })
     .catch((error) => {
@@ -55,8 +70,7 @@ const getMovieDataFromAPI = (tmdb_id) => {
 };
 
 function App() {
-  const [currentSearch, setCurrentSearch] = useState("");
-  const [searchData, setSearchData] = useState({});
+  const [searchData, setSearchData] = useState([]);
   const [topMoviesData, setTopMoviesData] = useState({});
   const [topTVShowsData, setTopTVShowsData] = useState({});
 
@@ -67,8 +81,10 @@ function App() {
         console.log("Error");
       } else {
         const tvshow = response.tvshow;
-        tvshow.poster_url = `${imageUrl}/${size}${tvshow.poster_url}`;
-        console.log(tvshow);
+        tvshow.poster_url = tvshow.poster_url
+          ? `${imageUrl}${size}${tvshow.poster_url}`
+          : null;
+        console.log("In getShowData");
         return tvshow;
       }
     });
@@ -81,8 +97,10 @@ function App() {
         console.log("Error");
       } else {
         const movie = response.movie;
-        movie.poster_url = `${imageUrl}/${size}${movie.poster_url}`;
-        console.log(movie);
+        movie.poster_url = movie.poster_url
+          ? `${imageUrl}${size}${movie.poster_url}`
+          : null;
+        console.log("In getMovieData");
         return movie;
       }
     });
@@ -102,9 +120,22 @@ function App() {
       });
   };
 
-  const setSearchQuery = (search_for) => {
-    console.log(search_for);
-    setCurrentSearch(search_for);
+  const getSearchData = (search_for) => {
+    getSearchDataFromAPI(search_for).then((response) => {
+      if (response.statuscode !== 200) {
+        //manage error
+        console.log("Error getting search data");
+      } else {
+        console.log("In getSearchData");
+        const search_result = response.data;
+        for (let entry of search_result) {
+          if (entry.poster_url) {
+            entry.poster_url = `${imageUrl}w92${entry.poster_url}`;
+          }
+        }
+        setSearchData(search_result);
+      }
+    });
   };
 
   // useEffect(() => {
@@ -123,21 +154,9 @@ function App() {
   useEffect(() => {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
+      console.log("In app useEffect");
     });
   }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${baseURL}/media/top/tvshows`)
-  //     // .get(`${process.env.REACT_APP_BACKEND_URL}/media/top/tvshows`)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setTopTVShowsData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   return (
     <Routes>
@@ -147,9 +166,8 @@ function App() {
         element={
           <Main
             getTopMovies={getTopMoviesFromAPI}
-            setSearchQuery={setSearchQuery}
+            getSearchData={getSearchData}
             searchData={searchData}
-            currentSearch={currentSearch}
             topTVShowsData={topTVShowsData}
           />
         }

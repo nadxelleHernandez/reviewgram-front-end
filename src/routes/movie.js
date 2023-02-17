@@ -25,7 +25,7 @@ const Movie = ({ getMovieData, user }) => {
 
   useEffect(() => {
     getMovieData(tmdb_id, "w185").then((data) => {
-      console.log(data);
+      console.log("In Movie route useEffect");
       setMovie(data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
