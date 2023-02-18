@@ -7,8 +7,9 @@ import Main from "./routes/main";
 import Movie from "./routes/movie";
 import TVshow from "./routes/tv-show";
 import ErrorPage from "./routes/error-page";
-import NavigationBar from "./components/navigationBar";
+import UserData from "./models/userData";
 import UserList from "./routes/userList";
+import NavigationBar from "./components/navigationBar";
 
 const baseURL = process.env.REACT_APP_BACKEND_URL;
 let imageUrl = "";
@@ -74,7 +75,7 @@ const getSearchDataFromAPI = (query) => {
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-
+  const mockUser = new UserData("reviewGram User1", 1);
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
       if (response.statuscode !== 200) {
@@ -155,6 +156,22 @@ function App() {
     });
   };
 
+  const getUserWatchList = (user_id) => {
+    return axios
+      .get(`${baseURL}/users/${user_id}/watchlist`)
+      .then((response) => {
+        console.log("In getUserWatchList");
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.response.statusText);
+        console.log(error.response.data);
+        return error.response.data;
+      });
+  };
+
   useEffect(() => {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
@@ -166,7 +183,10 @@ function App() {
     <>
       <NavigationBar></NavigationBar>
       <Routes>
-        <Route path="/UserList" element={<UserList />}></Route>
+        <Route
+          path="/UserList:user_id"
+          element={<UserList getUserWatchList={getUserWatchList} />}
+        ></Route>
         <Route
           path="/"
           errorElement={<ErrorPage />}
@@ -181,11 +201,11 @@ function App() {
         />
         <Route
           path="/movie/:tmdb_id"
-          element={<Movie getMovieData={getMovieData} />}
+          element={<Movie getMovieData={getMovieData} user={mockUser} />}
         />
         <Route
           path="/tv/:tmdb_id"
-          element={<TVshow getShowData={getShowData} />}
+          element={<TVshow getShowData={getShowData} user={mockUser} />}
         />
       </Routes>
     </>
