@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
 const NavigationBar = ({ user_id }) => {
-  console.log(user_id);
   return (
     <div>
       <Navbar bg="primary" expand="sm" variant="dark">

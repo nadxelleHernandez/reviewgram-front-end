@@ -185,7 +185,7 @@ function App() {
       <NavigationBar user_id={mockUser.id}></NavigationBar>
       <Routes>
         <Route
-          path="/UserList:user_id"
+          path="/UserList/:user_id"
           element={<UserList getUserWatchList={getUserWatchList} />}
         ></Route>
         <Route
