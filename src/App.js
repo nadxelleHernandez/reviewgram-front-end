@@ -75,7 +75,8 @@ const getSearchDataFromAPI = (query) => {
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-  const mockUser = new UserData("reviewGram User1", 1);
+  const mockUser = new UserData(1, "reviewGram User1");
+
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
       if (response.statuscode !== 200) {
@@ -181,7 +182,7 @@ function App() {
 
   return (
     <>
-      <NavigationBar></NavigationBar>
+      <NavigationBar user_id={mockUser.id}></NavigationBar>
       <Routes>
         <Route
           path="/UserList:user_id"
