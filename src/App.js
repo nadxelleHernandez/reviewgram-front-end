@@ -69,6 +69,14 @@ const getSearchDataFromAPI = (query) => {
     });
 };
 
+const convertGenresListtoString = (genres) => {
+  return genres.reduce((genresStr, currentGenre) => {
+    return genresStr + " / " + currentGenre;
+  });
+};
+
+//-----------------Component----------------------------
+
 function App() {
   const [searchData, setSearchData] = useState([]);
 
@@ -82,6 +90,7 @@ function App() {
         tvshow.poster_url = tvshow.poster_url
           ? `${imageUrl}${size}${tvshow.poster_url}`
           : null;
+        tvshow.genres = convertGenresListtoString(tvshow.genres);
         console.log("In getShowData");
         return tvshow;
       }
@@ -98,6 +107,7 @@ function App() {
         movie.poster_url = movie.poster_url
           ? `${imageUrl}${size}${movie.poster_url}`
           : null;
+        movie.genres = convertGenresListtoString(movie.genres);
         console.log("In getMovieData");
         return movie;
       }
@@ -122,7 +132,6 @@ function App() {
     return axios
       .get(`${baseURL}/media/top/tvshows`)
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((error) => {

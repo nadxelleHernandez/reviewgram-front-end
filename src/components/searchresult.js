@@ -5,7 +5,7 @@ const SearchResult = ({ media }) => {
   const nameToDisplay = media.isMovie ? media.title : media.name;
   const linkToGo = media.isMovie
     ? `/movie/${media.TMDB_id}`
-    : `/tvshow/${media.TMDB_id}`;
+    : `/tv/${media.TMDB_id}`;
 
   const linkDisplay = media.poster_url ? (
     <img

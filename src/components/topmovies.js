@@ -29,7 +29,7 @@ const TopMovies = ({ toggleShow, getTopMovies }) => {
 
   useEffect(() => {
     getTopMovies().then((result) => {
-      console.log(result.movies);
+      console.log("In useEffect of top movies");
       setTopMoviesData(result.movies);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

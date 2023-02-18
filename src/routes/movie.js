@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import MovieData from "../models/movieData";
 import UserData from "../models/userData";
 import PropTypes from "prop-types";
-//import { Img } from "react-image";
+import MovieDetails from "../components/moviedetails";
+import Reviews from "../components/reviews";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const defaultMovie = new MovieData(
   0,
@@ -19,7 +23,7 @@ const defaultMovie = new MovieData(
   "unknown"
 );
 
-const Movie = ({ getMovieData, user }) => {
+const Movie = ({ getMovieData, user, getReviews }) => {
   const { tmdb_id } = useParams();
   const [movie, setMovie] = useState(defaultMovie);
 
@@ -33,25 +37,16 @@ const Movie = ({ getMovieData, user }) => {
 
   return (
     <main>
-      <section className="media">
-        <h1>{movie.title}</h1>
-        <img src={movie.poster_url} alt={movie.title} />
-        <section className="media-data">
-          <h2>Details</h2>
-          <ul>
-            <li>
-              <h3>Overview</h3>
-              <p>{movie.overview}</p>
-            </li>
-            <li>Rating: {movie.rating}</li>
-            <li>Original Language: {movie.original_language}</li>
-            <li>Status: {movie.status}</li>
-            <li>Release date: {movie.release_date}</li>
-            <li>Runtime: {movie.runtime}</li>
-            <li>Genres: {movie.genres}</li>
-          </ul>
-        </section>
-      </section>
+      <Container>
+        <Row>
+          <Col>
+            <MovieDetails movie={movie}></MovieDetails>
+          </Col>
+          <Col>
+            <Reviews media={movie} getReviews={getReviews}></Reviews>
+          </Col>
+        </Row>
+      </Container>
     </main>
   );
 };
