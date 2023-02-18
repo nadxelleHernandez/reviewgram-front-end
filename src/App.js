@@ -2,10 +2,13 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./routes/main";
 import Movie from "./routes/movie";
 import TVshow from "./routes/tv-show";
 import ErrorPage from "./routes/error-page";
+import NavigationBar from "./components/navigationBar";
+import UserList from "./routes/userList";
 
 const baseURL = process.env.REACT_APP_BACKEND_URL;
 let imageUrl = "";
@@ -160,28 +163,32 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        errorElement={<ErrorPage />}
-        element={
-          <Main
-            getTopMovies={getTopMoviesFromAPI}
-            getSearchData={getSearchData}
-            searchData={searchData}
-            getTopTVShows={getTopTVShowsFromAPI}
-          />
-        }
-      />
-      <Route
-        path="/movie/:tmdb_id"
-        element={<Movie getMovieData={getMovieData} />}
-      />
-      <Route
-        path="/tv/:tmdb_id"
-        element={<TVshow getShowData={getShowData} />}
-      />
-    </Routes>
+    <>
+      <NavigationBar></NavigationBar>
+      <Routes>
+        <Route path="/UserList" element={<UserList />}></Route>
+        <Route
+          path="/"
+          errorElement={<ErrorPage />}
+          element={
+            <Main
+              getTopMovies={getTopMoviesFromAPI}
+              getSearchData={getSearchData}
+              searchData={searchData}
+              getTopTVShows={getTopTVShowsFromAPI}
+            />
+          }
+        />
+        <Route
+          path="/movie/:tmdb_id"
+          element={<Movie getMovieData={getMovieData} />}
+        />
+        <Route
+          path="/tv/:tmdb_id"
+          element={<TVshow getShowData={getShowData} />}
+        />
+      </Routes>
+    </>
   );
 }
 
