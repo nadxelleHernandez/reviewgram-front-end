@@ -1,7 +1,7 @@
 //make a component
 // add html for userLists
 const UserList = ({ getUserData }) => {
-  return <div></div>;
+  return <div>User List</div>;
 };
 
 export default UserList;
