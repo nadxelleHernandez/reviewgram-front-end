@@ -73,6 +73,32 @@ const getSearchDataFromAPI = (query) => {
     });
 };
 
+const convertGenresListtoString = (genres) => {
+  return genres.reduce((genresStr, currentGenre) => {
+    return genresStr + " / " + currentGenre;
+  });
+};
+
+const getReviewsFromAPI = (tmdb_id, isMovie) => {
+  const typeMedia = isMovie ? "movies" : "tv";
+  const reviewUrl = `${baseURL}/media/${typeMedia}/${tmdb_id}/reviews`;
+
+  return axios
+    .get(reviewUrl)
+    .then((response) => {
+      console.log(`In get ReviewsFromAPI url: ${reviewUrl}`);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
+//-----------------Component----------------------------
+
 function App() {
   const [searchData, setSearchData] = useState([]);
   const mockUser = new UserData(1, "reviewGram User1");
@@ -87,6 +113,7 @@ function App() {
         tvshow.poster_url = tvshow.poster_url
           ? `${imageUrl}${size}${tvshow.poster_url}`
           : null;
+        tvshow.genres = convertGenresListtoString(tvshow.genres);
         console.log("In getShowData");
         return tvshow;
       }
@@ -103,6 +130,7 @@ function App() {
         movie.poster_url = movie.poster_url
           ? `${imageUrl}${size}${movie.poster_url}`
           : null;
+        movie.genres = convertGenresListtoString(movie.genres);
         console.log("In getMovieData");
         return movie;
       }
@@ -128,7 +156,6 @@ function App() {
     return axios
       .get(`${baseURL}/media/top/tvshows`)
       .then((response) => {
-        console.log("In getTopTVShowsFromAPI");
         return response.data;
       })
       .catch((error) => {
@@ -173,6 +200,18 @@ function App() {
       });
   };
 
+  const getReviews = (tmdb_id, isMovie) => {
+    return getReviewsFromAPI(tmdb_id, isMovie).then((response) => {
+      if (response.statuscode !== 200) {
+        //manage error
+        console.log("Error getting reviews for Media");
+      } else {
+        console.log("In getReviews");
+        return response.reviews;
+      }
+    });
+  };
+
   useEffect(() => {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
@@ -202,11 +241,23 @@ function App() {
         />
         <Route
           path="/movie/:tmdb_id"
-          element={<Movie getMovieData={getMovieData} user={mockUser} />}
+          element={
+            <Movie
+              getMovieData={getMovieData}
+              user={mockUser}
+              getReviews={getReviews}
+            />
+          }
         />
         <Route
           path="/tv/:tmdb_id"
-          element={<TVshow getShowData={getShowData} user={mockUser} />}
+          element={
+            <TVshow
+              getShowData={getShowData}
+              user={mockUser}
+              getReviews={getReviews}
+            />
+          }
         />
       </Routes>
     </>
