@@ -39,6 +39,8 @@ const Movie = ({ getMovieData, user, getReviews }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const createReview = (review) => {};
+
   return (
     <main className="main">
       <Container>
@@ -47,7 +49,11 @@ const Movie = ({ getMovieData, user, getReviews }) => {
             <MovieDetails movie={movie}></MovieDetails>
           </Col>
           <Col>
-            <Reviews media={movie} reviewsList={reviews}></Reviews>
+            <Reviews
+              media={movie}
+              reviewsList={reviews}
+              createReview={createReview}
+            ></Reviews>
           </Col>
         </Row>
       </Container>
