@@ -26,11 +26,15 @@ const defaultMovie = new MovieData(
 const Movie = ({ getMovieData, user, getReviews }) => {
   const { tmdb_id } = useParams();
   const [movie, setMovie] = useState(defaultMovie);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
+    console.log("In Movie route useEffect");
     getMovieData(tmdb_id, "w185").then((data) => {
-      console.log("In Movie route useEffect");
       setMovie(data);
+    });
+    getReviews(tmdb_id, true).then((data) => {
+      setReviews(data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -43,7 +47,7 @@ const Movie = ({ getMovieData, user, getReviews }) => {
             <MovieDetails movie={movie}></MovieDetails>
           </Col>
           <Col>
-            <Reviews media={movie} getReviews={getReviews}></Reviews>
+            <Reviews media={movie} reviewsList={reviews}></Reviews>
           </Col>
         </Row>
       </Container>

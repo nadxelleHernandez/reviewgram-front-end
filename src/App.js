@@ -79,6 +79,24 @@ const convertGenresListtoString = (genres) => {
   });
 };
 
+const getReviewsFromAPI = (tmdb_id, isMovie) => {
+  const typeMedia = isMovie ? "movies" : "tv";
+  const reviewUrl = `${baseURL}/media/${typeMedia}/${tmdb_id}/reviews`;
+
+  return axios
+    .get(reviewUrl)
+    .then((response) => {
+      console.log(`In get ReviewsFromAPI url: ${reviewUrl}`);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
 //-----------------Component----------------------------
 
 function App() {
@@ -182,6 +200,18 @@ function App() {
       });
   };
 
+  const getReviews = (tmdb_id, isMovie) => {
+    return getReviewsFromAPI(tmdb_id, isMovie).then((response) => {
+      if (response.statuscode !== 200) {
+        //manage error
+        console.log("Error getting reviews for Media");
+      } else {
+        console.log("In getReviews");
+        return response.reviews;
+      }
+    });
+  };
+
   useEffect(() => {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
@@ -211,11 +241,23 @@ function App() {
         />
         <Route
           path="/movie/:tmdb_id"
-          element={<Movie getMovieData={getMovieData} user={mockUser} />}
+          element={
+            <Movie
+              getMovieData={getMovieData}
+              user={mockUser}
+              getReviews={getReviews}
+            />
+          }
         />
         <Route
           path="/tv/:tmdb_id"
-          element={<TVshow getShowData={getShowData} user={mockUser} />}
+          element={
+            <TVshow
+              getShowData={getShowData}
+              user={mockUser}
+              getReviews={getReviews}
+            />
+          }
         />
       </Routes>
     </>
