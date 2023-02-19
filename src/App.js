@@ -97,11 +97,27 @@ const getReviewsFromAPI = (tmdb_id, isMovie) => {
     });
 };
 
+const createReviewAPI = (userId, review) => {
+  const addReviewUrl = `${baseURL}/users/${userId}/reviews`;
+  return axios
+    .post(addReviewUrl, review)
+    .then((response) => {
+      console.log("In create ReviewsFromAPI");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
 //-----------------Component----------------------------
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-  const mockUser = new UserData(1, "reviewGram User1");
+  const mockUser = new UserData(1, "reviewGramUser1");
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
@@ -246,6 +262,7 @@ function App() {
               getMovieData={getMovieData}
               user={mockUser}
               getReviews={getReviews}
+              addReview={createReviewAPI}
             />
           }
         />

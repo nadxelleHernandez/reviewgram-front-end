@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MovieData from "../models/movieData";
 import UserData from "../models/userData";
 import PropTypes from "prop-types";
@@ -23,10 +23,11 @@ const defaultMovie = new MovieData(
   "unknown"
 );
 
-const Movie = ({ getMovieData, user, getReviews }) => {
+const Movie = ({ getMovieData, user, getReviews, addReview }) => {
   const { tmdb_id } = useParams();
   const [movie, setMovie] = useState(defaultMovie);
   const [reviews, setReviews] = useState([]);
+  const reviewsRef = useRef();
 
   useEffect(() => {
     console.log("In Movie route useEffect");
@@ -35,11 +36,24 @@ const Movie = ({ getMovieData, user, getReviews }) => {
     });
     getReviews(tmdb_id, true).then((data) => {
       setReviews(data);
+      reviewsRef.current.handleSelect("reviews");
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createReview = (review) => {};
+  const createReview = (review) => {
+    addReview(user.id, review).then((response) => {
+      if (response.statuscode !== 201) {
+        //manage error
+        console.log("Error");
+      } else {
+        const newReview = response.review;
+        const newReviewsList = [newReview, ...reviews];
+        console.log(newReview);
+        setReviews(newReviewsList);
+      }
+    });
+  };
 
   return (
     <main className="main">
@@ -50,6 +64,7 @@ const Movie = ({ getMovieData, user, getReviews }) => {
           </Col>
           <Col>
             <Reviews
+              ref={reviewsRef}
               media={movie}
               reviewsList={reviews}
               createReview={createReview}

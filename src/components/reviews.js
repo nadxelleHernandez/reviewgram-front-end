@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef, useImperativeHandle } from "react";
 import Card from "react-bootstrap/Card";
 import Nav from "react-bootstrap/Nav";
 import AddReviewForm from "./addReviewForm";
@@ -6,7 +6,7 @@ import MediaRating from "./mediarating";
 import "./reviews.css";
 import ReviewsList from "./reviewsList";
 
-const Reviews = ({ media, reviewsList, createReview }) => {
+const Reviews = forwardRef(({ media, reviewsList, createReview }, ref) => {
   const reviews = <ReviewsList reviews={reviewsList}></ReviewsList>;
   const addReview = (
     <AddReviewForm media={media} createReview={createReview}></AddReviewForm>
@@ -20,6 +20,11 @@ const Reviews = ({ media, reviewsList, createReview }) => {
       setReviewsBody(addReview);
     }
   };
+
+  useImperativeHandle(ref, () => ({
+    handleSelect,
+  }));
+
   return (
     <Card style={{ height: "85vh" }}>
       <Card.Header className="d-flex">
@@ -49,6 +54,6 @@ const Reviews = ({ media, reviewsList, createReview }) => {
       <Card.Footer> </Card.Footer>
     </Card>
   );
-};
+});
 
 export default Reviews;
