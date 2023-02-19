@@ -22,6 +22,7 @@ const defaultTVShow = new TVShowData(
 
 const TopTVShows = ({ toggleShow, getTopTVShows }) => {
   const [topTVShowsData, setTopTVShowsData] = useState([defaultTVShow]);
+
   const tvshowEntries = topTVShowsData.map((tvshow) => {
     return (
       <li key={tvshow.TMDB_id}>
@@ -40,7 +41,7 @@ const TopTVShows = ({ toggleShow, getTopTVShows }) => {
 
   return (
     <div>
-      <p>Top TV Shows</p>
+      <p>Top popular TV Shows</p>
       <ol>{tvshowEntries}</ol>
     </div>
   );

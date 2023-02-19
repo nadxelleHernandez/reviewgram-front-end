@@ -1,0 +1,11 @@
+.card-header {
+    justify-content: space-between;
+}
+
+.review-title{
+    font-weight: bold;
+}
+
+.created-title{
+    font-style: italic;
+}
