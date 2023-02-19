@@ -4,9 +4,9 @@ import MediaRating from "./mediarating";
 
 const MovieDetails = ({ movie }) => {
   return (
-    <Card>
+    <Card style={{ height: "85vh" }}>
       <Card.Header as="h1">{movie.title}</Card.Header>
-      <Card.Body>
+      <Card.Body className="overflow-auto">
         <section className="media">
           <img src={movie.poster_url} alt={movie.title} />
           <section className="media-data">
