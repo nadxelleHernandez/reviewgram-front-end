@@ -33,7 +33,7 @@ const TopTVShows = ({ toggleShow, getTopTVShows }) => {
 
   useEffect(() => {
     getTopTVShows().then((result) => {
-      console.log("In use effect of topTVshows");
+      console.log("In getTopTVShows useEffect");
       setTopTVShowsData(result.tvshows);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

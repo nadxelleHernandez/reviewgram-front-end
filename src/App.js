@@ -2,10 +2,14 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./routes/main";
 import Movie from "./routes/movie";
 import TVshow from "./routes/tv-show";
 import ErrorPage from "./routes/error-page";
+import UserData from "./models/userData";
+import UserList from "./routes/userList";
+import NavigationBar from "./components/navigationBar";
 
 const baseURL = process.env.REACT_APP_BACKEND_URL;
 let imageUrl = "";
@@ -79,6 +83,7 @@ const convertGenresListtoString = (genres) => {
 
 function App() {
   const [searchData, setSearchData] = useState([]);
+  const mockUser = new UserData(1, "reviewGram User1");
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
@@ -118,6 +123,7 @@ function App() {
     return axios
       .get(`${baseURL}/media/top/movies`)
       .then((response) => {
+        console.log("In getTopMoviesFromAPI");
         return response.data;
       })
       .catch((error) => {
@@ -160,6 +166,22 @@ function App() {
     });
   };
 
+  const getUserWatchList = (user_id) => {
+    return axios
+      .get(`${baseURL}/users/${user_id}/watchlist`)
+      .then((response) => {
+        console.log("In getUserWatchList");
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.response.statusText);
+        console.log(error.response.data);
+        return error.response.data;
+      });
+  };
+
   useEffect(() => {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
@@ -168,28 +190,35 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        errorElement={<ErrorPage />}
-        element={
-          <Main
-            getTopMovies={getTopMoviesFromAPI}
-            getSearchData={getSearchData}
-            searchData={searchData}
-            getTopTVShows={getTopTVShowsFromAPI}
-          />
-        }
-      />
-      <Route
-        path="/movie/:tmdb_id"
-        element={<Movie getMovieData={getMovieData} />}
-      />
-      <Route
-        path="/tv/:tmdb_id"
-        element={<TVshow getShowData={getShowData} />}
-      />
-    </Routes>
+    <>
+      <NavigationBar user_id={mockUser.id}></NavigationBar>
+      <Routes>
+        <Route
+          path="/UserList/:user_id"
+          element={<UserList getUserWatchList={getUserWatchList} />}
+        ></Route>
+        <Route
+          path="/"
+          errorElement={<ErrorPage />}
+          element={
+            <Main
+              getTopMovies={getTopMoviesFromAPI}
+              getSearchData={getSearchData}
+              searchData={searchData}
+              getTopTVShows={getTopTVShowsFromAPI}
+            />
+          }
+        />
+        <Route
+          path="/movie/:tmdb_id"
+          element={<Movie getMovieData={getMovieData} user={mockUser} />}
+        />
+        <Route
+          path="/tv/:tmdb_id"
+          element={<TVshow getShowData={getShowData} user={mockUser} />}
+        />
+      </Routes>
+    </>
   );
 }
 
