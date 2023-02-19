@@ -10,7 +10,7 @@ const Main = ({ getTopMovies, getSearchData, searchData, getTopTVShows }) => {
     <main>
       <main className="main">
         <header className="header">
-          <h1 id="AppName">ReviewGram</h1>
+          {/* <h1 id="AppName">ReviewGram</h1> */}
 
           <section id="Search">
             <Search createNewSearch={getSearchData}></Search>
