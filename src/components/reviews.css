@@ -1,7 +1,7 @@
-.stars-rate {
-   text-align: right;
+.card-header {
+    justify-content: space-between;
 }
 
 .review-title{
-    text-align: left;
+    font-weight: bold;
 }

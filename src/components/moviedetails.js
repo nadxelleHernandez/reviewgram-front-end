@@ -1,6 +1,6 @@
 import React from "react";
-import Rating from "@mui/material/Rating";
 import Card from "react-bootstrap/Card";
+import MediaRating from "./mediarating";
 
 const MovieDetails = ({ movie }) => {
   return (
@@ -19,12 +19,7 @@ const MovieDetails = ({ movie }) => {
               </li>
               <li>
                 Rating:
-                <Rating
-                  value={(movie.rating * 5) / 10}
-                  precision={0.25}
-                  readOnly
-                ></Rating>{" "}
-                {movie.rating}
+                <MediaRating rating={movie.rating}></MediaRating>
               </li>
               <li>Original Language: {movie.original_language}</li>
               <li>Status: {movie.status}</li>
