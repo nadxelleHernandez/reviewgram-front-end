@@ -25,16 +25,17 @@ const Reviews = ({ media, reviewsList }) => {
   });
 
   return (
-    <Card>
+    <Card style={{ height: "85vh" }}>
       <Card.Header className="d-flex">
         <span className="review-title">Reviews </span>
         <span>
           <MediaRating rating={media.rating}></MediaRating>
         </span>
       </Card.Header>
-      <Card.Body>
+      <Card.Body className="overflow-auto">
         <ListGroup as="ol">{reviewsDisplay}</ListGroup>
       </Card.Body>
+      <Card.Footer> </Card.Footer>
     </Card>
   );
 };
