@@ -19,7 +19,7 @@ const MovieDetails = ({ movie }) => {
               </li>
               <li>
                 Rating:
-                <MediaRating rating={movie.rating}></MediaRating>
+                <MediaRating rating={movie.rating} size="small"></MediaRating>
               </li>
               <li>Original Language: {movie.original_language}</li>
               <li>Status: {movie.status}</li>

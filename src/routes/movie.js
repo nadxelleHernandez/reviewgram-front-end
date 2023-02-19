@@ -36,7 +36,7 @@ const Movie = ({ getMovieData, user, getReviews }) => {
   }, []);
 
   return (
-    <main>
+    <main className="main">
       <Container>
         <Row>
           <Col>

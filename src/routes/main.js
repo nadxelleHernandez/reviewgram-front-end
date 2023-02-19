@@ -4,14 +4,13 @@ import TopTVShows from "../components/toptvshows";
 import TopMovies from "../components/topmovies";
 import SearchResults from "../components/searchResults";
 import "./main.css";
+import Container from "react-bootstrap/Container";
 
 const Main = ({ getTopMovies, getSearchData, searchData, getTopTVShows }) => {
   return (
-    <main>
+    <Container>
       <main className="main">
         <header className="header">
-          {/* <h1 id="AppName">ReviewGram</h1> */}
-
           <section id="Search">
             <Search createNewSearch={getSearchData}></Search>
           </section>
@@ -36,7 +35,7 @@ const Main = ({ getTopMovies, getSearchData, searchData, getTopTVShows }) => {
           </section>
         </div>
       </main>
-    </main>
+    </Container>
   );
 };
 
