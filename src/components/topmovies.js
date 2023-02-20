@@ -21,16 +21,16 @@ const TopMovies = ({ toggleShow, getTopMovies }) => {
 
   const movieEntries = topMoviesData.map((movie) => {
     return (
-      <li key={movie.TMDB_id}>
+      <div className="card" key={movie.TMDB_id}>
         <MediaEntry media={movie}></MediaEntry>
-      </li>
+      </div>
     );
   });
 
   useEffect(() => {
     getTopMovies().then((result) => {
       console.log("In getTopMovies useEffect");
-      setTopMoviesData(result.movies);
+      setTopMoviesData(result);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
