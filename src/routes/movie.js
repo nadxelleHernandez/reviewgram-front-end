@@ -48,7 +48,6 @@ const Movie = ({ getMovieData, user, getReviews, addReview }) => {
       } else {
         const newReview = response.review;
         const newReviewsList = [newReview, ...reviews];
-        console.log(newReview);
         setReviews(newReviewsList);
         //reviewsRef.current.changeTab("reviews");
       }
