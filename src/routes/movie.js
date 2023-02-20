@@ -77,6 +77,7 @@ const Movie = ({
         console.log("Error");
       } else {
         console.log(response.entry);
+        showAlert(`${response.entry.media.title} added to Watchlist`);
         //Call watchlist route
       }
     });
@@ -89,6 +90,7 @@ const Movie = ({
         console.log("Error");
       } else {
         console.log(response.entry);
+        showAlert(`${response.entry.media.title} added to Watched list`);
         //Call watchlist route
       }
     });
