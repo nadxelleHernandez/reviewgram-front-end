@@ -99,6 +99,7 @@ const getReviewsFromAPI = (tmdb_id, isMovie) => {
 
 const createReviewAPI = (userId, review) => {
   const addReviewUrl = `${baseURL}/users/${userId}/reviews`;
+  console.log(review);
   return axios
     .post(addReviewUrl, review)
     .then((response) => {
@@ -324,6 +325,9 @@ function App() {
               getShowData={getShowData}
               user={mockUser}
               getReviews={getReviews}
+              addReview={createReviewAPI}
+              addToWatchlist={addToWatchlistAPI}
+              addToWatched={addToWatchedAPI}
             />
           }
         />
