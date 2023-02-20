@@ -36,7 +36,6 @@ const Movie = ({ getMovieData, user, getReviews, addReview }) => {
     });
     getReviews(tmdb_id, true).then((data) => {
       setReviews(data);
-      reviewsRef.current.handleSelect("reviews");
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -7,23 +7,11 @@ import "./reviews.css";
 import ReviewsList from "./reviewsList";
 
 const Reviews = forwardRef(({ media, reviewsList, createReview }, ref) => {
-  const reviews = <ReviewsList reviews={reviewsList}></ReviewsList>;
-  const addReview = (
-    <AddReviewForm media={media} createReview={createReview}></AddReviewForm>
-  );
-  const [reviewsBody, setReviewsBody] = useState(reviews);
+  const [inReviews, setInReviews] = useState("reviews");
 
   const handleSelect = (eventKey) => {
-    if (eventKey === "reviews") {
-      setReviewsBody(reviews);
-    } else if (eventKey === "addReview") {
-      setReviewsBody(addReview);
-    }
+    setInReviews(eventKey);
   };
-
-  useImperativeHandle(ref, () => ({
-    handleSelect,
-  }));
 
   return (
     <Card style={{ height: "85vh" }}>
@@ -50,7 +38,18 @@ const Reviews = forwardRef(({ media, reviewsList, createReview }, ref) => {
           <MediaRating rating={media.rating}></MediaRating>
         </span>
       </Card.Header>
-      <Card.Body className="overflow-auto">{reviewsBody}</Card.Body>
+      <Card.Body className="overflow-auto">
+        {inReviews === "reviews" && (
+          <ReviewsList reviews={reviewsList}></ReviewsList>
+        )}
+
+        {inReviews === "addReview" && (
+          <AddReviewForm
+            media={media}
+            createReview={createReview}
+          ></AddReviewForm>
+        )}
+      </Card.Body>
       <Card.Footer> </Card.Footer>
     </Card>
   );
