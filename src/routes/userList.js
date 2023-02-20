@@ -10,16 +10,16 @@ const UserList = ({ getUserWatchList }) => {
 
   const userWatchListEntries = userWatchList.map((watchlist) => {
     return (
-      <li key={watchlist.id}>
+      <div key={watchlist.id}>
         <MediaEntry media={watchlist["media"]}></MediaEntry>
-      </li>
+      </div>
     );
   });
   useEffect(() => {
     getUserWatchList(user_id, "w185").then((data) => {
       console.log("In user watch list route useEffect");
-      console.log(data["watchlist"]);
-      setUserWatchList(data["watchlist"]);
+      console.log(data);
+      setUserWatchList(data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

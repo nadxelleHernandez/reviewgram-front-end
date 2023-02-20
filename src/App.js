@@ -207,14 +207,11 @@ function App() {
             movie.poster_url = `${imageUrl}w92${movie.poster_url}`;
           }
         }
-        console.log(top_movies);
         return top_movies;
       })
       .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.response.statusText);
-        console.log(error.response.data);
-        return error.response.data;
+        console.log(error);
+        return error;
       });
   };
 
@@ -232,10 +229,8 @@ function App() {
         return top_tvshows;
       })
       .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.response.statusText);
-        console.log(error.response.data);
-        return error.response.data;
+        console.log(error);
+        return error;
       });
   };
 
@@ -263,13 +258,19 @@ function App() {
       .then((response) => {
         console.log("In getUserWatchList");
         console.log(response.data);
-        return response.data;
+        const user_watchlist = response.data["watchlist"];
+        for (let media of user_watchlist) {
+          if (media["media"].poster_url) {
+            media[
+              "media"
+            ].poster_url = `${imageUrl}w92${media["media"].poster_url}`;
+          }
+        }
+        return user_watchlist;
       })
       .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.response.statusText);
-        console.log(error.response.data);
-        return error.response.data;
+        console.log(error);
+        return error;
       });
   };
 
