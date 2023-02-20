@@ -9,6 +9,7 @@ import Reviews from "../components/reviews";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import AlertModal from "../components/alertModal";
 
 const defaultMovie = new MovieData(
   0,
@@ -23,11 +24,25 @@ const defaultMovie = new MovieData(
   "unknown"
 );
 
-const Movie = ({ getMovieData, user, getReviews, addReview }) => {
+const Movie = ({
+  getMovieData,
+  user,
+  getReviews,
+  addReview,
+  addToWatchlist,
+  addToWatched,
+}) => {
   const { tmdb_id } = useParams();
   const [movie, setMovie] = useState(defaultMovie);
   const [reviews, setReviews] = useState([]);
   const reviewsRef = useRef();
+  const [showModal, setShowModal] = useState({ show: false, message: "" });
+
+  const showAlert = (message) => {
+    setShowModal({ show: true, message: message });
+  };
+
+  const handleClose = () => setShowModal({ show: false, message: "" });
 
   useEffect(() => {
     console.log("In Movie route useEffect");
@@ -49,7 +64,32 @@ const Movie = ({ getMovieData, user, getReviews, addReview }) => {
         const newReview = response.review;
         const newReviewsList = [newReview, ...reviews];
         setReviews(newReviewsList);
+        showAlert("Review added");
         //reviewsRef.current.changeTab("reviews");
+      }
+    });
+  };
+
+  const toWatchlist = (media) => {
+    addToWatchlist(media, user).then((response) => {
+      if (response.statuscode !== 201) {
+        //manage error
+        console.log("Error");
+      } else {
+        console.log(response.entry);
+        //Call watchlist route
+      }
+    });
+  };
+
+  const toWatchedlist = (media) => {
+    addToWatched(media, user).then((response) => {
+      if (response.statuscode !== 201) {
+        //manage error
+        console.log("Error");
+      } else {
+        console.log(response.entry);
+        //Call watchlist route
       }
     });
   };
@@ -59,7 +99,11 @@ const Movie = ({ getMovieData, user, getReviews, addReview }) => {
       <Container>
         <Row>
           <Col>
-            <MovieDetails movie={movie}></MovieDetails>
+            <MovieDetails
+              movie={movie}
+              toWatchlist={toWatchlist}
+              toWatchedlist={toWatchedlist}
+            ></MovieDetails>
           </Col>
           <Col>
             <Reviews
@@ -71,6 +115,7 @@ const Movie = ({ getMovieData, user, getReviews, addReview }) => {
           </Col>
         </Row>
       </Container>
+      <AlertModal showModal={showModal} handleClose={handleClose}></AlertModal>
     </main>
   );
 };

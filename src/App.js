@@ -113,6 +113,48 @@ const createReviewAPI = (userId, review) => {
     });
 };
 
+const addToWatchlistAPI = (media, user) => {
+  const requestBody = {
+    TMDB_id: media.TMDB_id,
+    isMovie: media.isMovie,
+    title: media.isMovie ? media.title : media.name,
+  };
+  const url = `${baseURL}/users/${user.id}/watchlist`;
+  return axios
+    .post(url, requestBody)
+    .then((response) => {
+      console.log("In create addToWatchlistAPI");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
+const addToWatchedAPI = (media, user) => {
+  const requestBody = {
+    TMDB_id: media.TMDB_id,
+    isMovie: media.isMovie,
+    title: media.isMovie ? media.title : media.name,
+  };
+  const url = `${baseURL}/users/${user.id}/watched`;
+  return axios
+    .post(url, requestBody)
+    .then((response) => {
+      console.log("In create addToWatchedAPI");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
 //-----------------Component----------------------------
 
 function App() {
@@ -263,6 +305,8 @@ function App() {
               user={mockUser}
               getReviews={getReviews}
               addReview={createReviewAPI}
+              addToWatchlist={addToWatchlistAPI}
+              addToWatched={addToWatchedAPI}
             />
           }
         />
