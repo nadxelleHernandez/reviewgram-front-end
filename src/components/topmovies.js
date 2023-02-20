@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { Col } from "react-bootstrap";
 import MovieData from "../models/movieData";
 import MediaEntry from "./mediaentry";
 
@@ -18,7 +19,6 @@ const defaultMovie = new MovieData(
 
 const TopMovies = ({ toggleShow, getTopMovies }) => {
   const [topMoviesData, setTopMoviesData] = useState([defaultMovie]);
-
   const movieEntries = topMoviesData.map((movie) => {
     return (
       <div className="card" key={movie.TMDB_id}>
@@ -38,7 +38,8 @@ const TopMovies = ({ toggleShow, getTopMovies }) => {
   return (
     <div>
       <p>Top Popular Movies</p>
-      <ol>{movieEntries}</ol>
+
+      <Col className="d-flex">{movieEntries}</Col>
     </div>
   );
 };

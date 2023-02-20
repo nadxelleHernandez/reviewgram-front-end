@@ -274,6 +274,28 @@ function App() {
       });
   };
 
+  const getUserWatchedList = (user_id) => {
+    return axios
+      .get(`${baseURL}/users/${user_id}/watched`)
+      .then((response) => {
+        console.log("In getUserWatchedList");
+        console.log(response.data);
+        const user_watchedlist = response.data["watched"];
+        for (let media of user_watchedlist) {
+          if (media["media"].poster_url) {
+            media[
+              "media"
+            ].poster_url = `${imageUrl}w92${media["media"].poster_url}`;
+          }
+        }
+        return user_watchedlist;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      });
+  };
+
   const getReviews = (tmdb_id, isMovie) => {
     return getReviewsFromAPI(tmdb_id, isMovie).then((response) => {
       if (response.statuscode !== 200) {
@@ -299,7 +321,12 @@ function App() {
       <Routes>
         <Route
           path="/UserList/:user_id"
-          element={<UserList getUserWatchList={getUserWatchList} />}
+          element={
+            <UserList
+              getUserWatchList={getUserWatchList}
+              getUserWatchedList={getUserWatchedList}
+            />
+          }
         ></Route>
         <Route
           path="/"

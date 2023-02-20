@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Col } from "react-bootstrap";
 import TVShowData from "../models/TVShowData";
 import MediaEntry from "./mediaentry";
 
@@ -41,8 +42,10 @@ const TopTVShows = ({ toggleShow, getTopTVShows }) => {
 
   return (
     <div>
+      <p></p>
+      <p></p>
       <p>Top popular TV Shows</p>
-      <ol>{tvshowEntries}</ol>
+      <Col className="d-flex">{tvshowEntries}</Col>
     </div>
   );
 };

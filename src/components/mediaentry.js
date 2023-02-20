@@ -18,9 +18,10 @@ const MediaEntry = ({ media }) => {
     //   </Link>
     //   <span> Rating: {media.rating}</span>
     // </div>
+
     <Link to={`/${media_type}/${media.TMDB_id}`}>
-      <Card style={{ width: "10rem" }}>
-        <Card.Img variant="top" src={media.poster_url} />
+      <Card style={{ width: "10rem", height: "25rem" }}>
+        <Card.Img variant="top" src={media.poster_url} alt="top media" />
         <Card.Body>
           <Card.Title>{media.isMovie ? media.title : media.name}</Card.Title>
           <Card.Subtitle>
