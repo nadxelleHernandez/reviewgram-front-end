@@ -159,7 +159,7 @@ const addToWatchedAPI = (media, user) => {
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-  const mockUser = new UserData(3, "reviewGramUser1");
+  const mockUser = new UserData(1, "reviewGramUser1");
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
@@ -200,7 +200,14 @@ function App() {
       .get(`${baseURL}/media/top/movies`)
       .then((response) => {
         console.log("In getTopMoviesFromAPI");
-        return response.data;
+        const top_movies = response.data;
+        console.log(top_movies);
+        for (let movie of top_movies["movies"]) {
+          if (movie.poster_url) {
+            movie.poster_url = `${imageUrl}w92${movie.poster_url}`;
+          }
+        }
+        return top_movies;
       })
       .catch((error) => {
         console.log(error.response.status);
