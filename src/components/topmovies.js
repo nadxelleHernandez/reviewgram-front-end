@@ -21,9 +21,9 @@ const TopMovies = ({ toggleShow, getTopMovies }) => {
 
   const movieEntries = topMoviesData.map((movie) => {
     return (
-      <li key={movie.TMDB_id}>
+      <div className="card" key={movie.TMDB_id}>
         <MediaEntry media={movie}></MediaEntry>
-      </li>
+      </div>
     );
   });
 
