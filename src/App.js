@@ -97,11 +97,69 @@ const getReviewsFromAPI = (tmdb_id, isMovie) => {
     });
 };
 
+const createReviewAPI = (userId, review) => {
+  const addReviewUrl = `${baseURL}/users/${userId}/reviews`;
+  return axios
+    .post(addReviewUrl, review)
+    .then((response) => {
+      console.log("In create ReviewsFromAPI");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
+const addToWatchlistAPI = (media, user) => {
+  const requestBody = {
+    TMDB_id: media.TMDB_id,
+    isMovie: media.isMovie,
+    title: media.isMovie ? media.title : media.name,
+  };
+  const url = `${baseURL}/users/${user.id}/watchlist`;
+  return axios
+    .post(url, requestBody)
+    .then((response) => {
+      console.log("In create addToWatchlistAPI");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
+const addToWatchedAPI = (media, user) => {
+  const requestBody = {
+    TMDB_id: media.TMDB_id,
+    isMovie: media.isMovie,
+    title: media.isMovie ? media.title : media.name,
+  };
+  const url = `${baseURL}/users/${user.id}/watched`;
+  return axios
+    .post(url, requestBody)
+    .then((response) => {
+      console.log("In create addToWatchedAPI");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
 //-----------------Component----------------------------
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-  const mockUser = new UserData(1, "reviewGram User1");
+  const mockUser = new UserData(3, "reviewGramUser1");
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
@@ -246,6 +304,9 @@ function App() {
               getMovieData={getMovieData}
               user={mockUser}
               getReviews={getReviews}
+              addReview={createReviewAPI}
+              addToWatchlist={addToWatchlistAPI}
+              addToWatched={addToWatchedAPI}
             />
           }
         />

@@ -20,6 +20,7 @@ const AddReviewForm = ({ media, createReview }) => {
       ? newReview.media.title
       : newReview.media.name;
     createReview(review);
+    setNewReview(defaultReview);
   };
 
   const formOnChange = (event) => {
