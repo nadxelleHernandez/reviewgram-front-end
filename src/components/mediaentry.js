@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import "./mediaentry.css";
 import MediaRating from "./mediarating";
@@ -17,21 +18,20 @@ const MediaEntry = ({ media }) => {
     //   </Link>
     //   <span> Rating: {media.rating}</span>
     // </div>
-
-    <Card style={{ width: "10rem" }}>
-      <Card.Img
-        variant="top"
-        src={media.isMovie ? media.poster_url : media.poster_path}
-      />
-      <Card.Body>
-        <Card.Title>{media.isMovie ? media.title : media.name}</Card.Title>
-        <Card.Subtitle>
-          <MediaRating rating={media.rating}></MediaRating>
-        </Card.Subtitle>
-
-        <Card.Link href={`/${media_type}/${media.TMDB_id}`}>Details</Card.Link>
-      </Card.Body>
-    </Card>
+    <Link to={`/${media_type}/${media.TMDB_id}`}>
+      <Card style={{ width: "10rem" }}>
+        <Card.Img
+          variant="top"
+          src={media.isMovie ? media.poster_url : media.poster_path}
+        />
+        <Card.Body>
+          <Card.Title>{media.isMovie ? media.title : media.name}</Card.Title>
+          <Card.Subtitle>
+            <MediaRating rating={media.rating}></MediaRating>
+          </Card.Subtitle>
+        </Card.Body>
+      </Card>
+    </Link>
   );
 };
 
