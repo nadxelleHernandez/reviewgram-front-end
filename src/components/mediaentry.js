@@ -19,7 +19,10 @@ const MediaEntry = ({ media }) => {
     // </div>
 
     <Card style={{ width: "10rem" }}>
-      <Card.Img variant="top" src={media.poster_url} />
+      <Card.Img
+        variant="top"
+        src={media.isMovie ? media.poster_url : media.poster_path}
+      />
       <Card.Body>
         <Card.Title>{media.isMovie ? media.title : media.name}</Card.Title>
         <Card.Subtitle>

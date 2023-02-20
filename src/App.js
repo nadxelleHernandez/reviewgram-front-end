@@ -201,9 +201,8 @@ function App() {
       .get(`${baseURL}/media/top/movies`)
       .then((response) => {
         console.log("In getTopMoviesFromAPI");
-        const top_movies = response.data;
-        console.log(top_movies);
-        for (let movie of top_movies["movies"]) {
+        const top_movies = response.data["movies"];
+        for (let movie of top_movies) {
           if (movie.poster_url) {
             movie.poster_url = `${imageUrl}w92${movie.poster_url}`;
           }
@@ -222,7 +221,15 @@ function App() {
     return axios
       .get(`${baseURL}/media/top/tvshows`)
       .then((response) => {
-        return response.data;
+        console.log("In getTopMoviesFromAPI");
+        console.log(response.data);
+        const top_tvshows = response.data["tvshows"];
+        for (let tvshow of top_tvshows) {
+          if (tvshow.poster_path) {
+            tvshow.poster_path = `${imageUrl}w92${tvshow.poster_path}`;
+          }
+        }
+        return top_tvshows;
       })
       .catch((error) => {
         console.log(error.response.status);
