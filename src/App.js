@@ -117,7 +117,7 @@ const createReviewAPI = (userId, review) => {
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-  const mockUser = new UserData(1, "reviewGramUser1");
+  const mockUser = new UserData(3, "reviewGramUser1");
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {

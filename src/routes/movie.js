@@ -50,6 +50,7 @@ const Movie = ({ getMovieData, user, getReviews, addReview }) => {
         const newReviewsList = [newReview, ...reviews];
         console.log(newReview);
         setReviews(newReviewsList);
+        //reviewsRef.current.changeTab("reviews");
       }
     });
   };

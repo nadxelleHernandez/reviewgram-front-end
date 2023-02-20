@@ -1,4 +1,4 @@
-import { useState, forwardRef, useImperativeHandle } from "react";
+import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import Nav from "react-bootstrap/Nav";
 import AddReviewForm from "./addReviewForm";
@@ -8,10 +8,20 @@ import ReviewsList from "./reviewsList";
 
 const Reviews = forwardRef(({ media, reviewsList, createReview }, ref) => {
   const [inReviews, setInReviews] = useState("reviews");
+  const review = useRef();
 
   const handleSelect = (eventKey) => {
     setInReviews(eventKey);
   };
+
+  // const changeTab = (eventkey) => {
+  //   setInReviews(eventkey);
+  //   review.select();
+  // };
+
+  // useImperativeHandle(ref, () => ({
+  //   changeTab,
+  // }));
 
   return (
     <Card style={{ height: "85vh" }}>
@@ -19,11 +29,11 @@ const Reviews = forwardRef(({ media, reviewsList, createReview }, ref) => {
         <span className="review-title">
           <Nav
             variant="tabs"
-            defaultActiveKey="reviews"
+            defaultActiveKey={inReviews}
             onSelect={handleSelect}
           >
             <Nav.Item>
-              <Nav.Link eventKey="reviews" href="#first">
+              <Nav.Link ref={review} eventKey="reviews" href="#first">
                 Reviews
               </Nav.Link>
             </Nav.Item>
