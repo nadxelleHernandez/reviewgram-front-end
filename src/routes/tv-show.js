@@ -1,11 +1,15 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import TVShowData from "../models/TVShowData";
 import UserData from "../models/userData";
-//import Poster from "../components/media-components/poster";
-//import { Img } from "react-image";
+import Reviews from "../components/reviews";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import AlertModal from "../components/alertModal";
+import TVShowDetails from "../components/tvshowdetails";
 
 const defaultShow = new TVShowData(
   0,
@@ -25,43 +29,100 @@ const defaultShow = new TVShowData(
   "unknown"
 );
 
-const TVshow = ({ getShowData, user }) => {
+const TVshow = ({
+  getShowData,
+  user,
+  getReviews,
+  addReview,
+  addToWatchlist,
+  addToWatched,
+}) => {
   const { tmdb_id } = useParams();
   const [show, setShow] = useState(defaultShow);
+  const [reviews, setReviews] = useState([]);
+  const reviewsRef = useRef();
+  const [showModal, setShowModal] = useState({ show: false, message: "" });
+
+  const showAlert = (message) => {
+    setShowModal({ show: true, message: message });
+  };
+
+  const handleClose = () => setShowModal({ show: false, message: "" });
 
   useEffect(() => {
     getShowData(tmdb_id, "w185").then((data) => {
       console.log("In TVshow route useEffect");
       setShow(data);
     });
+    getReviews(tmdb_id, false).then((data) => {
+      setReviews(data);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const createReview = (review) => {
+    addReview(user.id, review).then((response) => {
+      if (response.statuscode !== 201) {
+        //manage error
+        console.log("Error");
+      } else {
+        const newReview = response.review;
+        const newReviewsList = [newReview, ...reviews];
+        setReviews(newReviewsList);
+        showAlert("Review added");
+        //reviewsRef.current.changeTab("reviews");
+      }
+    });
+  };
+
+  const toWatchlist = (media) => {
+    addToWatchlist(media, user).then((response) => {
+      if (response.statuscode !== 201) {
+        //manage error
+        console.log("Error");
+      } else {
+        console.log(response.entry);
+        showAlert(`${response.entry.media.title} added to Watchlist`);
+        //Call watchlist route
+      }
+    });
+  };
+
+  const toWatchedlist = (media) => {
+    addToWatched(media, user).then((response) => {
+      if (response.statuscode !== 201) {
+        //manage error
+        console.log("Error");
+      } else {
+        console.log(response.entry);
+        showAlert(`${response.entry.media.title} added to Watched list`);
+        //Call watchlist route
+      }
+    });
+  };
+
   return (
-    <main>
-      <section className="media">
-        <h1>{show.name}</h1>
-        <img src={show.poster_url} alt={show.name} />
-        <section className="media-data">
-          <h2>Details</h2>
-          <ul>
-            <li>
-              <h3>Overview</h3>
-              <p>{show.overview}</p>
-            </li>
-            <li>Rating: {show.rating}</li>
-            <li>Original Language: {show.original_language}</li>
-            <li>Origin Country: {show.origin_country}</li>
-            <li>Number of Episodes: {show.number_of_episodes}</li>
-            <li>Number of Seasons: {show.number_of_seasons}</li>
-            <li>Status: {show.status}</li>
-            <li>First Air Date: {show.first_air_date}</li>
-            <li>Last Air Date: {show.last_air_date}</li>
-            <li>Episode Runtime: {show.episode_runtime}</li>
-            <li>Genres: {show.genres}</li>
-          </ul>
-        </section>
-      </section>
+    <main className="main">
+      <Container>
+        <Row>
+          <Col>
+            <TVShowDetails
+              show={show}
+              toWatchlist={toWatchlist}
+              toWatchedlist={toWatchedlist}
+            ></TVShowDetails>
+          </Col>
+          <Col>
+            <Reviews
+              ref={reviewsRef}
+              media={show}
+              reviewsList={reviews}
+              createReview={createReview}
+            ></Reviews>
+          </Col>
+        </Row>
+      </Container>
+      <AlertModal showModal={showModal} handleClose={handleClose}></AlertModal>
     </main>
   );
 };
