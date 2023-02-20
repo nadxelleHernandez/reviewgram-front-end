@@ -9,7 +9,7 @@ import Container from "react-bootstrap/Container";
 const Main = ({ getTopMovies, getSearchData, searchData, getTopTVShows }) => {
   return (
     <Container>
-      <main className="main">
+      <Container className="main">
         <header className="header">
           <section id="Search">
             <Search createNewSearch={getSearchData}></Search>
@@ -18,23 +18,22 @@ const Main = ({ getTopMovies, getSearchData, searchData, getTopTVShows }) => {
         <section id="SearchResults">
           <SearchResults searchData={searchData}></SearchResults>
         </section>
-        <div id="Trending">
-          <section className="Media">
-            <TopMovies
-              id="TopMovies"
-              toggleShow={searchData === []}
-              getTopMovies={getTopMovies}
-            ></TopMovies>
-          </section>
-          <section className="Media">
-            <TopTVShows
-              id="TopTVShows"
-              toggleShow={searchData === []}
-              getTopTVShows={getTopTVShows}
-            ></TopTVShows>
-          </section>
-        </div>
-      </main>
+      </Container>
+
+      <Container className="overflow-auto" id="Trending">
+        <TopMovies
+          id="TopMovies"
+          toggleShow={searchData === []}
+          getTopMovies={getTopMovies}
+        ></TopMovies>
+      </Container>
+      <Container className="overflow-auto" id="Trending">
+        <TopTVShows
+          id="TopTVShows"
+          toggleShow={searchData === []}
+          getTopTVShows={getTopTVShows}
+        ></TopTVShows>
+      </Container>
     </Container>
   );
 };
