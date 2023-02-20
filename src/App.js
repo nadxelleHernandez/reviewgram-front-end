@@ -207,6 +207,7 @@ function App() {
             movie.poster_url = `${imageUrl}w92${movie.poster_url}`;
           }
         }
+        console.log(top_movies);
         return top_movies;
       })
       .catch((error) => {
@@ -221,12 +222,11 @@ function App() {
     return axios
       .get(`${baseURL}/media/top/tvshows`)
       .then((response) => {
-        console.log("In getTopMoviesFromAPI");
-        console.log(response.data);
+        console.log("In getTopTVShowsFromAPI");
         const top_tvshows = response.data["tvshows"];
         for (let tvshow of top_tvshows) {
-          if (tvshow.poster_path) {
-            tvshow.poster_path = `${imageUrl}w92${tvshow.poster_path}`;
+          if (tvshow.poster_url) {
+            tvshow.poster_url = `${imageUrl}w92${tvshow.poster_url}`;
           }
         }
         return top_tvshows;
