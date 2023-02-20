@@ -160,7 +160,7 @@ const addToWatchedAPI = (media, user) => {
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-  const mockUser = new UserData(3, "reviewGramUser1");
+  const mockUser = new UserData(1, "reviewGramUser1");
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
@@ -201,13 +201,17 @@ function App() {
       .get(`${baseURL}/media/top/movies`)
       .then((response) => {
         console.log("In getTopMoviesFromAPI");
-        return response.data;
+        const top_movies = response.data["movies"];
+        for (let movie of top_movies) {
+          if (movie.poster_url) {
+            movie.poster_url = `${imageUrl}w92${movie.poster_url}`;
+          }
+        }
+        return top_movies;
       })
       .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.response.statusText);
-        console.log(error.response.data);
-        return error.response.data;
+        console.log(error);
+        return error;
       });
   };
 
@@ -215,13 +219,18 @@ function App() {
     return axios
       .get(`${baseURL}/media/top/tvshows`)
       .then((response) => {
-        return response.data;
+        console.log("In getTopTVShowsFromAPI");
+        const top_tvshows = response.data["tvshows"];
+        for (let tvshow of top_tvshows) {
+          if (tvshow.poster_url) {
+            tvshow.poster_url = `${imageUrl}w92${tvshow.poster_url}`;
+          }
+        }
+        return top_tvshows;
       })
       .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.response.statusText);
-        console.log(error.response.data);
-        return error.response.data;
+        console.log(error);
+        return error;
       });
   };
 
@@ -249,13 +258,19 @@ function App() {
       .then((response) => {
         console.log("In getUserWatchList");
         console.log(response.data);
-        return response.data;
+        const user_watchlist = response.data["watchlist"];
+        for (let media of user_watchlist) {
+          if (media["media"].poster_url) {
+            media[
+              "media"
+            ].poster_url = `${imageUrl}w92${media["media"].poster_url}`;
+          }
+        }
+        return user_watchlist;
       })
       .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.response.statusText);
-        console.log(error.response.data);
-        return error.response.data;
+        console.log(error);
+        return error;
       });
   };
 

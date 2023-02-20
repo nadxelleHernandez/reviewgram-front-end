@@ -17,11 +17,11 @@ const SearchResult = ({ media }) => {
   );
 
   return (
-    <li>
+    <div>
       <h3>{nameToDisplay}</h3>
       <Link to={linkToGo}>{linkDisplay}</Link>
       <p>Overview: {media.overview}</p>
-    </li>
+    </div>
   );
 };
 

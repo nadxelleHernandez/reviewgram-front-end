@@ -25,16 +25,16 @@ const TopTVShows = ({ toggleShow, getTopTVShows }) => {
 
   const tvshowEntries = topTVShowsData.map((tvshow) => {
     return (
-      <li key={tvshow.TMDB_id}>
+      <div key={tvshow.TMDB_id}>
         <MediaEntry media={tvshow}></MediaEntry>
-      </li>
+      </div>
     );
   });
 
   useEffect(() => {
     getTopTVShows().then((result) => {
       console.log("In getTopTVShows useEffect");
-      setTopTVShowsData(result.tvshows);
+      setTopTVShowsData(result);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
