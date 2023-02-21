@@ -325,6 +325,7 @@ function App() {
             <UserList
               getUserWatchList={getUserWatchList}
               getUserWatchedList={getUserWatchedList}
+              user={mockUser}
             />
           }
         ></Route>
