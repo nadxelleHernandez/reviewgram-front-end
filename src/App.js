@@ -9,6 +9,8 @@ import TVshow from "./routes/tv-show";
 import ErrorPage from "./routes/error-page";
 import UserList from "./routes/userList";
 import NavigationBar from "./components/navigationBar";
+import UserDetails from "./routes/user-details";
+import CreateUser from "./routes/create-user";
 
 const baseURL = process.env.REACT_APP_BACKEND_URL;
 let imageUrl = "";
@@ -412,6 +414,8 @@ function App() {
             />
           }
         />
+        <Route path="/user/:id" element={<UserDetails user={user} />} />
+        <Route path="/user" element={<CreateUser user={setUser} />} />
       </Routes>
     </>
   );

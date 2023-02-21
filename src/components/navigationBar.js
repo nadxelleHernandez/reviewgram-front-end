@@ -59,7 +59,14 @@ const NavigationBar = ({ user, handleLogin, logOut }) => {
               )}
             </Nav>
           </Navbar.Collapse>
-          <Navbar.Text className="username">{user.user.username}</Navbar.Text>
+          {user.token && (
+            <Navbar.Text className="username">{user.user.username}</Navbar.Text>
+          )}
+          {user.token === "" && (
+            <Navbar.Text>
+              <Link to="/user">Sign Up</Link>
+            </Navbar.Text>
+          )}
         </Container>
       </Navbar>
       <Login
