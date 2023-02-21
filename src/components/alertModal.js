@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 
 const AlertModal = ({ showModal, handleClose }) => {
   return (
-    <Modal show={showModal.show} onHide={handleClose}>
+    <Modal show={showModal.show} onHide={handleClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>Alert</Modal.Title>
       </Modal.Header>

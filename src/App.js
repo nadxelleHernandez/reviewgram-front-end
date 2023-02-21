@@ -7,7 +7,6 @@ import Main from "./routes/main";
 import Movie from "./routes/movie";
 import TVshow from "./routes/tv-show";
 import ErrorPage from "./routes/error-page";
-import UserData from "./models/userData";
 import UserList from "./routes/userList";
 import NavigationBar from "./components/navigationBar";
 
@@ -156,11 +155,52 @@ const addToWatchedAPI = (media, user) => {
     });
 };
 
+const getAuthenticationTokenAPI = (logindata) => {
+  const url = `${baseURL}/token`;
+  return axios
+    .post(url, logindata)
+    .then((response) => {
+      console.log("In validate user");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
+const unsignedUser = {
+  token: "",
+  user: { id: 0, username: "" },
+};
+
 //-----------------Component----------------------------
 
 function App() {
   const [searchData, setSearchData] = useState([]);
-  const mockUser = new UserData(1, "reviewGramUser1");
+  const [user, setUser] = useState(unsignedUser);
+
+  const doLogin = (logindata) => {
+    return getAuthenticationTokenAPI(logindata).then((response) => {
+      if (response.statuscode !== 200) {
+        //manage error
+        console.log("Error while authenticating");
+      } else {
+        console.log("Validating user succeded");
+        console.log(response);
+        const token = response.token;
+        const user = response.user;
+        setUser({ token, user });
+        return response.token;
+      }
+    });
+  };
+
+  const logOut = () => {
+    setUser(unsignedUser);
+  };
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
@@ -204,7 +244,7 @@ function App() {
         const top_movies = response.data["movies"];
         for (let movie of top_movies) {
           if (movie.poster_url) {
-            movie.poster_url = `${imageUrl}w92${movie.poster_url}`;
+            movie.poster_url = `${imageUrl}w154${movie.poster_url}`;
           }
         }
         return top_movies;
@@ -223,7 +263,7 @@ function App() {
         const top_tvshows = response.data["tvshows"];
         for (let tvshow of top_tvshows) {
           if (tvshow.poster_url) {
-            tvshow.poster_url = `${imageUrl}w92${tvshow.poster_url}`;
+            tvshow.poster_url = `${imageUrl}w154${tvshow.poster_url}`;
           }
         }
         return top_tvshows;
@@ -244,7 +284,7 @@ function App() {
         const search_result = response.data;
         for (let entry of search_result) {
           if (entry.poster_url) {
-            entry.poster_url = `${imageUrl}w92${entry.poster_url}`;
+            entry.poster_url = `${imageUrl}w154${entry.poster_url}`;
           }
         }
         setSearchData(search_result);
@@ -263,7 +303,7 @@ function App() {
           if (media["media"].poster_url) {
             media[
               "media"
-            ].poster_url = `${imageUrl}w92${media["media"].poster_url}`;
+            ].poster_url = `${imageUrl}w154${media["media"].poster_url}`;
           }
         }
         return user_watchlist;
@@ -285,7 +325,7 @@ function App() {
           if (media["media"].poster_url) {
             media[
               "media"
-            ].poster_url = `${imageUrl}w92${media["media"].poster_url}`;
+            ].poster_url = `${imageUrl}w154${media["media"].poster_url}`;
           }
         }
         return user_watchedlist;
@@ -317,7 +357,12 @@ function App() {
 
   return (
     <>
-      <NavigationBar user_id={mockUser.id}></NavigationBar>
+      <NavigationBar
+        user={user}
+        authenticated={false}
+        handleLogin={doLogin}
+        logOut={logOut}
+      ></NavigationBar>
       <Routes>
         <Route
           path="/UserList/:user_id"
@@ -325,7 +370,7 @@ function App() {
             <UserList
               getUserWatchList={getUserWatchList}
               getUserWatchedList={getUserWatchedList}
-              user={mockUser}
+              user={user}
             />
           }
         ></Route>
@@ -346,7 +391,7 @@ function App() {
           element={
             <Movie
               getMovieData={getMovieData}
-              user={mockUser}
+              user={user}
               getReviews={getReviews}
               addReview={createReviewAPI}
               addToWatchlist={addToWatchlistAPI}
@@ -359,7 +404,7 @@ function App() {
           element={
             <TVshow
               getShowData={getShowData}
-              user={mockUser}
+              user={user}
               getReviews={getReviews}
               addReview={createReviewAPI}
               addToWatchlist={addToWatchlistAPI}

@@ -48,13 +48,13 @@ const UserList = ({ getUserWatchList, getUserWatchedList, user }) => {
     <Container>
       <p></p>
       <Container className="overflow-auto">
-        <p>{user.username}'s Watch list</p>
+        <p>{user.user.username}'s Watch list</p>
         <Col className="d-flex">{userWatchListEntries}</Col>
       </Container>
       <p></p>
       <p></p>
       <Container className="overflow-auto">
-        <p>{user.username}'s Watched list</p>
+        <p>{user.user.username}'s Watched list</p>
         <Col className="d-flex">{userWatchedEntries}</Col>
       </Container>
     </Container>
