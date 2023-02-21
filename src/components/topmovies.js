@@ -37,7 +37,7 @@ const TopMovies = ({ toggleShow, getTopMovies }) => {
 
   return (
     <div>
-      <p>Top Popular Movies</p>
+      <p>Trending Movies</p>
 
       <Col className="d-flex">{movieEntries}</Col>
     </div>
