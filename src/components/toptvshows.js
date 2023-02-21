@@ -44,7 +44,7 @@ const TopTVShows = ({ toggleShow, getTopTVShows }) => {
     <div>
       <p></p>
       <p></p>
-      <p>Top popular TV Shows</p>
+      <p>Trending TV Shows</p>
       <Col className="d-flex">{tvshowEntries}</Col>
     </div>
   );
