@@ -17,7 +17,7 @@ const NavigationBar = ({ user_id }) => {
                 Home
               </Nav.Link>
               <Nav.Link as={Link} to={`/UserList/${user_id}`}>
-                User Lists
+                {user_id ? "My Lists" : "Login"}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
