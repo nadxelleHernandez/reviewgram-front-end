@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import MediaEntry from "../components/mediaentry";
+import Container from "react-bootstrap/Container";
+import { Col } from "react-bootstrap";
 
-const UserList = ({ getUserWatchList, getUserWatchedList }) => {
+const UserList = ({ getUserWatchList, getUserWatchedList, user }) => {
   const { user_id } = useParams();
   const [userWatchList, setUserWatchList] = useState([]);
   const [userWatchedList, setUserWatchedList] = useState([]);
@@ -43,16 +45,19 @@ const UserList = ({ getUserWatchList, getUserWatchedList }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div>
-      <div>
-        <p>User Watch list</p>
-        <ol>{userWatchListEntries}</ol>
-      </div>
-      <div>
-        <p>User Watched list</p>
-        <ol>{userWatchedEntries}</ol>
-      </div>
-    </div>
+    <Container>
+      <p></p>
+      <Container className="overflow-auto">
+        <p>{user.username}'s Watch list</p>
+        <Col className="d-flex">{userWatchListEntries}</Col>
+      </Container>
+      <p></p>
+      <p></p>
+      <Container className="overflow-auto">
+        <p>{user.username}'s Watched list</p>
+        <Col className="d-flex">{userWatchedEntries}</Col>
+      </Container>
+    </Container>
   );
 };
 UserList.propTypes = {
