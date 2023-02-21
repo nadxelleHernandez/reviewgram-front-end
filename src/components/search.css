@@ -2,6 +2,7 @@
     box-sizing: border-box;
   }
 #query {
+    height: 2rem;
     width: 50%;
     justify-content: center;
     border: 1px solid grey;
@@ -16,6 +17,7 @@
 
 #buttonSubmit {
   width: 20%;
+  height: 2rem;
   background: #2196F3;
   color: white;
   font-size: 15px;
@@ -23,7 +25,6 @@
   border-radius: 5px;
   border-left: none; /* Prevent double borders */
   cursor: pointer;
-
 }
 #buttonSubmit:hover {
     background: #0b7dda;
