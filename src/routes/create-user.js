@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -16,9 +16,22 @@ const defaultUser = {
 
 const CreateUser = ({ sendNewUser }) => {
   const [newUser, setNewUser] = useState(defaultUser);
+  const passwordRef = useRef(null);
+
+  const validInput = () => {
+    if (newUser.password !== newUser.checkPassword) {
+      alert("Passwords aren't the same");
+      passwordRef.current.focus();
+      return false;
+    }
+    return true;
+  };
 
   const submitInfo = () => {
-    sendNewUser(newUser);
+    if (validInput()) {
+      sendNewUser(newUser);
+      setNewUser(defaultUser);
+    }
   };
 
   const formOnChange = (event) => {
@@ -85,6 +98,7 @@ const CreateUser = ({ sendNewUser }) => {
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
+                    ref={passwordRef}
                     name="password"
                     type="password"
                     placeholder="Password"
