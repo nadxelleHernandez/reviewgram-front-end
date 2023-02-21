@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Login from "./login";
 
-const NavigationBar = ({ user, handleLogin }) => {
+const NavigationBar = ({ user, handleLogin, logOut }) => {
   const [showLogin, setShowLogin] = useState(false);
 
   const handleClose = () => {
@@ -18,15 +18,17 @@ const NavigationBar = ({ user, handleLogin }) => {
     setShowLogin(false);
   };
 
-  const onSelectNav = (eventKey) => {
-    if (eventKey === "login") {
-      setShowLogin(true);
-    }
+  const callLogOut = (event) => {
+    logOut();
+  };
+
+  const callLogin = (event) => {
+    setShowLogin(true);
   };
 
   return (
     <div>
-      <Navbar bg="primary" expand="sm" variant="dark" onSelect={onSelectNav}>
+      <Navbar bg="primary" expand="sm" variant="dark">
         <Container>
           <Navbar.Brand>ReviewGram</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,16 +37,26 @@ const NavigationBar = ({ user, handleLogin }) => {
               <Nav.Link eventKey="home" as={Link} to={"/"}>
                 Home
               </Nav.Link>
+
               {user.token && (
-                <Nav.Link
-                  eventkey="my-lists"
-                  as={Link}
-                  to={`/UserList/${user.user.id}`}
-                >
-                  My Lists
+                <>
+                  <Nav.Link
+                    eventkey="my-lists"
+                    as={Link}
+                    to={`/UserList/${user.user.id}`}
+                  >
+                    My Lists
+                  </Nav.Link>
+                  <Nav.Link eventkey="logout" onClick={callLogOut}>
+                    Log Out
+                  </Nav.Link>
+                </>
+              )}
+              {user.token === "" && (
+                <Nav.Link eventKey="login" onClick={callLogin}>
+                  Login
                 </Nav.Link>
               )}
-              {user.token === "" && <Nav.Link eventKey="login">Login</Nav.Link>}
             </Nav>
           </Navbar.Collapse>
         </Container>

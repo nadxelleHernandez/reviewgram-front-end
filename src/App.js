@@ -7,7 +7,6 @@ import Main from "./routes/main";
 import Movie from "./routes/movie";
 import TVshow from "./routes/tv-show";
 import ErrorPage from "./routes/error-page";
-import UserData from "./models/userData";
 import UserList from "./routes/userList";
 import NavigationBar from "./components/navigationBar";
 
@@ -183,8 +182,6 @@ function App() {
   const [searchData, setSearchData] = useState([]);
   const [user, setUser] = useState(unsignedUser);
 
-  const mockUser = new UserData(1, "reviewGramUser1");
-
   const doLogin = (logindata) => {
     return getAuthenticationTokenAPI(logindata).then((response) => {
       if (response.statuscode !== 200) {
@@ -199,6 +196,10 @@ function App() {
         return response.token;
       }
     });
+  };
+
+  const logOut = () => {
+    setUser(unsignedUser);
   };
 
   const getShowData = (tmdb_id, size) => {
@@ -360,6 +361,7 @@ function App() {
         user={user}
         authenticated={false}
         handleLogin={doLogin}
+        logOut={logOut}
       ></NavigationBar>
       <Routes>
         <Route
