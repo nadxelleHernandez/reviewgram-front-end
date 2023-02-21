@@ -61,7 +61,7 @@ const TVshow = ({
   }, []);
 
   const createReview = (review) => {
-    addReview(user.id, review).then((response) => {
+    addReview(user.user.id, review).then((response) => {
       if (response.statuscode !== 201) {
         //manage error
         console.log("Error");
@@ -76,7 +76,7 @@ const TVshow = ({
   };
 
   const toWatchlist = (media) => {
-    addToWatchlist(media, user).then((response) => {
+    addToWatchlist(media, user.user).then((response) => {
       if (response.statuscode !== 201) {
         //manage error
         console.log("Error");
@@ -89,7 +89,7 @@ const TVshow = ({
   };
 
   const toWatchedlist = (media) => {
-    addToWatched(media, user).then((response) => {
+    addToWatched(media, user.user).then((response) => {
       if (response.statuscode !== 201) {
         //manage error
         console.log("Error");
@@ -107,6 +107,7 @@ const TVshow = ({
         <Row>
           <Col>
             <TVShowDetails
+              userToken={user.token}
               show={show}
               toWatchlist={toWatchlist}
               toWatchedlist={toWatchedlist}
@@ -114,6 +115,7 @@ const TVshow = ({
           </Col>
           <Col>
             <Reviews
+              userToken={user.token}
               ref={reviewsRef}
               media={show}
               reviewsList={reviews}
@@ -130,7 +132,7 @@ const TVshow = ({
 TVshow.propTypes = {
   //show: PropTypes.instanceOf(TVShowData).isRequired,
   getShowData: PropTypes.func.isRequired,
-  user: PropTypes.instanceOf(UserData).isRequired,
+  //user: PropTypes.instanceOf(UserData).isRequired,
 };
 
 export default TVshow;

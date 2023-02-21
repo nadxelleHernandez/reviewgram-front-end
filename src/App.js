@@ -172,11 +172,34 @@ const getAuthenticationTokenAPI = (logindata) => {
     });
 };
 
+const unsignedUser = {
+  token: "",
+  user: { id: 0, username: "" },
+};
+
 //-----------------Component----------------------------
 
 function App() {
   const [searchData, setSearchData] = useState([]);
+  const [user, setUser] = useState(unsignedUser);
+
   const mockUser = new UserData(1, "reviewGramUser1");
+
+  const doLogin = (logindata) => {
+    return getAuthenticationTokenAPI(logindata).then((response) => {
+      if (response.statuscode !== 200) {
+        //manage error
+        console.log("Error while authenticating");
+      } else {
+        console.log("Validating user succeded");
+        console.log(response);
+        const token = response.token;
+        const user = response.user;
+        setUser({ token, user });
+        return response.token;
+      }
+    });
+  };
 
   const getShowData = (tmdb_id, size) => {
     return getShowDataFromAPI(tmdb_id).then((response) => {
@@ -324,19 +347,6 @@ function App() {
     });
   };
 
-  const doLogin = (logindata) => {
-    return getAuthenticationTokenAPI(logindata).then((response) => {
-      if (response.statuscode !== 200) {
-        //manage error
-        console.log("Error while authenticating");
-      } else {
-        console.log("Validating user succeded");
-        console.log(response);
-        return response.token;
-      }
-    });
-  };
-
   useEffect(() => {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
@@ -347,7 +357,7 @@ function App() {
   return (
     <>
       <NavigationBar
-        user_id={mockUser.id}
+        user={user}
         authenticated={false}
         handleLogin={doLogin}
       ></NavigationBar>
@@ -358,7 +368,7 @@ function App() {
             <UserList
               getUserWatchList={getUserWatchList}
               getUserWatchedList={getUserWatchedList}
-              user={mockUser}
+              user={user}
             />
           }
         ></Route>
@@ -379,7 +389,7 @@ function App() {
           element={
             <Movie
               getMovieData={getMovieData}
-              user={mockUser}
+              user={user}
               getReviews={getReviews}
               addReview={createReviewAPI}
               addToWatchlist={addToWatchlistAPI}
@@ -392,7 +402,7 @@ function App() {
           element={
             <TVshow
               getShowData={getShowData}
-              user={mockUser}
+              user={user}
               getReviews={getReviews}
               addReview={createReviewAPI}
               addToWatchlist={addToWatchlistAPI}

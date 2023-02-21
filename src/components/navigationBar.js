@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Login from "./login";
 
-const NavigationBar = ({ user_id, authenticated, handleLogin }) => {
+const NavigationBar = ({ user, handleLogin }) => {
   const [showLogin, setShowLogin] = useState(false);
 
   const handleClose = () => {
@@ -35,18 +35,16 @@ const NavigationBar = ({ user_id, authenticated, handleLogin }) => {
               <Nav.Link eventKey="home" as={Link} to={"/"}>
                 Home
               </Nav.Link>
-              {authenticated === true && (
+              {user.token && (
                 <Nav.Link
                   eventkey="my-lists"
                   as={Link}
-                  to={`/UserList/${user_id}`}
+                  to={`/UserList/${user.user.id}`}
                 >
                   My Lists
                 </Nav.Link>
               )}
-              {authenticated === false && (
-                <Nav.Link eventKey="login">Login</Nav.Link>
-              )}
+              {user.token === "" && <Nav.Link eventKey="login">Login</Nav.Link>}
             </Nav>
           </Navbar.Collapse>
         </Container>

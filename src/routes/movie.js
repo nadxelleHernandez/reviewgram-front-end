@@ -2,7 +2,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import MovieData from "../models/movieData";
-import UserData from "../models/userData";
 import PropTypes from "prop-types";
 import MovieDetails from "../components/moviedetails";
 import Reviews from "../components/reviews";
@@ -56,7 +55,7 @@ const Movie = ({
   }, []);
 
   const createReview = (review) => {
-    addReview(user.id, review).then((response) => {
+    addReview(user.user.id, review).then((response) => {
       if (response.statuscode !== 201) {
         //manage error
         console.log("Error");
@@ -71,7 +70,7 @@ const Movie = ({
   };
 
   const toWatchlist = (media) => {
-    addToWatchlist(media, user).then((response) => {
+    addToWatchlist(media, user.user).then((response) => {
       if (response.statuscode !== 201) {
         //manage error
         console.log("Error");
@@ -84,7 +83,7 @@ const Movie = ({
   };
 
   const toWatchedlist = (media) => {
-    addToWatched(media, user).then((response) => {
+    addToWatched(media, user.user).then((response) => {
       if (response.statuscode !== 201) {
         //manage error
         console.log("Error");
@@ -124,7 +123,7 @@ const Movie = ({
 
 Movie.propTypes = {
   getMovieData: PropTypes.func.isRequired,
-  user: PropTypes.instanceOf(UserData).isRequired,
+  //user: PropTypes.instanceOf(UserData).isRequired,
 };
 
 export default Movie;
