@@ -195,8 +195,8 @@ function App() {
   const doLogin = (logindata) => {
     return getAuthenticationTokenAPI(logindata).then((response) => {
       if (response.statuscode !== 200) {
-        //manage error
         console.log("Error while authenticating");
+        alert(`Error Authenticating: ${response.message}`);
       } else {
         console.log("Validating user succeded");
         const token = response.token;
@@ -360,7 +360,7 @@ function App() {
         console.log("Error");
       } else {
         const newUser = response.user;
-        alert(`User created \n Welcome ${newUser.username} to Reviewgram`);
+        alert(`User created: \n Welcome ${newUser.username} to Reviewgram`);
         doLogin(newUser);
         navigate("/", { replace: true });
         return newUser;
