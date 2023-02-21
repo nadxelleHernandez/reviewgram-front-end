@@ -10,6 +10,8 @@ const defaultUser = {
   name: "",
   email: "",
   password: "",
+  checkPassword: "",
+  username: "",
 };
 
 const CreateUser = ({ sendNewUser }) => {
@@ -33,7 +35,7 @@ const CreateUser = ({ sendNewUser }) => {
     <main className="main">
       <Container>
         <Card>
-          <Card.Header>Enter your data</Card.Header>
+          <Card.Header>Welcome to ReviewGram</Card.Header>
           <Card.Body>
             <Form>
               <Form.Group
@@ -49,6 +51,8 @@ const CreateUser = ({ sendNewUser }) => {
                     name="name"
                     type="text"
                     placeholder="Your Name"
+                    value={newUser.name}
+                    onChange={formOnChange}
                   />
                 </Col>
               </Form.Group>
@@ -61,7 +65,13 @@ const CreateUser = ({ sendNewUser }) => {
                   Email
                 </Form.Label>
                 <Col sm={10}>
-                  <Form.Control name="email" type="email" placeholder="Email" />
+                  <Form.Control
+                    name="email"
+                    type="email"
+                    placeholder="Email"
+                    value={newUser.email}
+                    onChange={formOnChange}
+                  />
                 </Col>
               </Form.Group>
 
@@ -75,9 +85,11 @@ const CreateUser = ({ sendNewUser }) => {
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
-                    name="checkEmail"
+                    name="password"
                     type="password"
                     placeholder="Password"
+                    value={newUser.password}
+                    onChange={formOnChange}
                   />
                 </Col>
               </Form.Group>
@@ -87,12 +99,15 @@ const CreateUser = ({ sendNewUser }) => {
                 controlId="formHorizontalCheckPassword"
               >
                 <Form.Label sm={2} column>
-                  Password
+                  {" "}
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
                     type="password"
                     placeholder="Type password again"
+                    name="checkPassword"
+                    value={newUser.checkPassword}
+                    onChange={formOnChange}
                   />
                 </Col>
               </Form.Group>
@@ -105,7 +120,13 @@ const CreateUser = ({ sendNewUser }) => {
                   User Name
                 </Form.Label>
                 <Col sm={10}>
-                  <Form.Control type="text" placeholder="User Name" />
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    placeholder="Your name in ReviewGram"
+                    value={newUser.username}
+                    onChange={formOnChange}
+                  />
                 </Col>
               </Form.Group>
             </Form>
