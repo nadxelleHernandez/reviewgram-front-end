@@ -156,6 +156,22 @@ const addToWatchedAPI = (media, user) => {
     });
 };
 
+const getAuthenticationTokenAPI = (logindata) => {
+  const url = `${baseURL}/token`;
+  return axios
+    .post(url, logindata)
+    .then((response) => {
+      console.log("In validate user");
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.statusText);
+      console.log(error.response.data);
+      return error.response.data;
+    });
+};
+
 //-----------------Component----------------------------
 
 function App() {
@@ -204,7 +220,7 @@ function App() {
         const top_movies = response.data["movies"];
         for (let movie of top_movies) {
           if (movie.poster_url) {
-            movie.poster_url = `${imageUrl}w92${movie.poster_url}`;
+            movie.poster_url = `${imageUrl}w154${movie.poster_url}`;
           }
         }
         return top_movies;
@@ -223,7 +239,7 @@ function App() {
         const top_tvshows = response.data["tvshows"];
         for (let tvshow of top_tvshows) {
           if (tvshow.poster_url) {
-            tvshow.poster_url = `${imageUrl}w92${tvshow.poster_url}`;
+            tvshow.poster_url = `${imageUrl}w154${tvshow.poster_url}`;
           }
         }
         return top_tvshows;
@@ -244,7 +260,7 @@ function App() {
         const search_result = response.data;
         for (let entry of search_result) {
           if (entry.poster_url) {
-            entry.poster_url = `${imageUrl}w92${entry.poster_url}`;
+            entry.poster_url = `${imageUrl}w154${entry.poster_url}`;
           }
         }
         setSearchData(search_result);
@@ -263,7 +279,7 @@ function App() {
           if (media["media"].poster_url) {
             media[
               "media"
-            ].poster_url = `${imageUrl}w92${media["media"].poster_url}`;
+            ].poster_url = `${imageUrl}w154${media["media"].poster_url}`;
           }
         }
         return user_watchlist;
@@ -285,7 +301,7 @@ function App() {
           if (media["media"].poster_url) {
             media[
               "media"
-            ].poster_url = `${imageUrl}w92${media["media"].poster_url}`;
+            ].poster_url = `${imageUrl}w154${media["media"].poster_url}`;
           }
         }
         return user_watchedlist;
@@ -308,6 +324,19 @@ function App() {
     });
   };
 
+  const doLogin = (logindata) => {
+    return getAuthenticationTokenAPI(logindata).then((response) => {
+      if (response.statuscode !== 200) {
+        //manage error
+        console.log("Error while authenticating");
+      } else {
+        console.log("Validating user succeded");
+        console.log(response);
+        return response.token;
+      }
+    });
+  };
+
   useEffect(() => {
     getImagesUrlFromAPI().then((url) => {
       imageUrl = url;
@@ -317,7 +346,11 @@ function App() {
 
   return (
     <>
-      <NavigationBar user_id={mockUser.id}></NavigationBar>
+      <NavigationBar
+        user_id={mockUser.id}
+        authenticated={false}
+        handleLogin={doLogin}
+      ></NavigationBar>
       <Routes>
         <Route
           path="/UserList/:user_id"
