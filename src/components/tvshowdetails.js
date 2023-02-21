@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import MediaRating from "./mediarating";
 import Button from "react-bootstrap/Button";
 
-const TVShowDetails = ({ show, toWatchlist, toWatchedlist }) => {
+const TVShowDetails = ({ show, toWatchlist, toWatchedlist, userToken }) => {
   const onClickWatched = (event) => {
     toWatchedlist(show);
   };
@@ -15,15 +15,19 @@ const TVShowDetails = ({ show, toWatchlist, toWatchedlist }) => {
   return (
     <Card style={{ height: "85vh" }}>
       <Card.Header className="d-flex justify-content-end ">
-        <Button variant="light" size="sm" disabled>
-          Add
-        </Button>
-        <Button onClick={onClickWatchlist} variant="light" size="sm">
-          To Watchlist
-        </Button>{" "}
-        <Button onClick={onClickWatched} variant="light" size="sm">
-          To Watched
-        </Button>
+        {userToken !== "" && (
+          <>
+            <Button variant="light" size="sm" disabled>
+              Add
+            </Button>
+            <Button onClick={onClickWatchlist} variant="light" size="sm">
+              To Watchlist
+            </Button>{" "}
+            <Button onClick={onClickWatched} variant="light" size="sm">
+              To Watched
+            </Button>
+          </>
+        )}
       </Card.Header>
       <Card.Body className="overflow-auto">
         <Card.Title>{show.name}</Card.Title>
