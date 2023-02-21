@@ -32,7 +32,7 @@ const NavigationBar = ({ user, handleLogin, logOut }) => {
         <Container>
           <Navbar.Brand>ReviewGram</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse id="basic-navbar-nav ">
             <Nav className="nav">
               <Nav.Link eventKey="home" as={Link} to={"/"}>
                 Home
@@ -59,6 +59,7 @@ const NavigationBar = ({ user, handleLogin, logOut }) => {
               )}
             </Nav>
           </Navbar.Collapse>
+          <Navbar.Text className="username">{user.user.username}</Navbar.Text>
         </Container>
       </Navbar>
       <Login
