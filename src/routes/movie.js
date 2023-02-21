@@ -101,6 +101,7 @@ const Movie = ({
         <Row>
           <Col>
             <MovieDetails
+              userToken={user.token}
               movie={movie}
               toWatchlist={toWatchlist}
               toWatchedlist={toWatchedlist}
@@ -108,6 +109,7 @@ const Movie = ({
           </Col>
           <Col>
             <Reviews
+              userToken={user.token}
               ref={reviewsRef}
               media={movie}
               reviewsList={reviews}

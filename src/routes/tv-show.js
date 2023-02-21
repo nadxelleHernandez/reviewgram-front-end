@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import TVShowData from "../models/TVShowData";
-import UserData from "../models/userData";
 import Reviews from "../components/reviews";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
