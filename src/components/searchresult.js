@@ -10,7 +10,10 @@ const SearchResult = ({ media }) => {
 
   return (
     <Container>
-      <Card style={{ width: "45rem", height: "25rem" }}>
+      <Card
+        style={{ width: "45rem", height: "25rem" }}
+        className="border-0 mt-2"
+      >
         <Row class="row no-gutters">
           <Col>
             <Card.Img
