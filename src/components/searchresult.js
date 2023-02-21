@@ -11,7 +11,7 @@ const SearchResult = ({ media }) => {
   return (
     <Container>
       <Card
-        style={{ width: "45rem", height: "25rem" }}
+        style={{ width: "55rem", height: "25rem" }}
         className="border-0 mt-2"
       >
         <Row class="row no-gutters">
@@ -23,7 +23,10 @@ const SearchResult = ({ media }) => {
             />
           </Col>
           <Col>
-            <Card.Body>
+            <Card.Body
+              className="overflow-auto"
+              style={{ width: "35rem", height: "25rem" }}
+            >
               <Card.Title>
                 {media.isMovie ? media.title : media.name}
               </Card.Title>

@@ -284,7 +284,7 @@ function App() {
         const search_result = response.data;
         for (let entry of search_result) {
           if (entry.poster_url) {
-            entry.poster_url = `${imageUrl}w154${entry.poster_url}`;
+            entry.poster_url = `${imageUrl}w342${entry.poster_url}`;
           }
         }
         setSearchData(search_result);
