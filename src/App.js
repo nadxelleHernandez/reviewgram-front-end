@@ -199,7 +199,6 @@ function App() {
         console.log("Error while authenticating");
       } else {
         console.log("Validating user succeded");
-        console.log(response);
         const token = response.token;
         const user = response.user;
         setUser({ token, user });
