@@ -405,6 +405,7 @@ function App() {
               getSearchData={getSearchData}
               searchData={searchData}
               getTopTVShows={getTopTVShowsFromAPI}
+              clearSearch={clearSearch}
             />
           }
         />
