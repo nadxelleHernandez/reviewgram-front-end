@@ -16,11 +16,13 @@ const SearchResult = ({ media }) => {
       >
         <Row class="row no-gutters">
           <Col>
-            <Card.Img
-              style={{ width: "18rem", height: "25rem" }}
-              src={media.poster_url ? media.poster_url : ""}
-              alt={media.isMovie ? media.title : media.name}
-            />
+            <Link to={linkToGo}>
+              <Card.Img
+                style={{ width: "18rem", height: "25rem" }}
+                src={media.poster_url ? media.poster_url : ""}
+                alt={media.isMovie ? media.title : media.name}
+              />
+            </Link>
           </Col>
           <Col>
             <Card.Body
