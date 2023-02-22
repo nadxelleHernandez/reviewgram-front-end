@@ -6,13 +6,22 @@ import SearchResults from "../components/searchResults";
 import "./main.css";
 import Container from "react-bootstrap/Container";
 
-const Main = ({ getTopMovies, getSearchData, searchData, getTopTVShows }) => {
+const Main = ({
+  getTopMovies,
+  getSearchData,
+  searchData,
+  getTopTVShows,
+  clearSearch,
+}) => {
   return (
     <Container>
       <Container className="main">
         <header className="header">
           <section id="Search">
-            <Search createNewSearch={getSearchData}></Search>
+            <Search
+              createNewSearch={getSearchData}
+              clearSearch={clearSearch}
+            ></Search>
           </section>
         </header>
         <section id="SearchResults">

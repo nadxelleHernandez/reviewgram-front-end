@@ -1,6 +1,16 @@
 * {
     box-sizing: border-box;
   }
+
+  #form {
+    display: grid;
+  width: 100vh;
+  height: 2rem;
+  /* flex-wrap: wrap; */
+  /* align-items: center; */
+  grid-template-columns: 800px 110vh;
+  }
+  
 #query {
     height: 2rem;
     width: 50%;
@@ -15,7 +25,7 @@
     background-color: white;
   }
 
-#buttonSubmit {
+.buttonSubmit {
   width: 20%;
   height: 2rem;
   background: #2196F3;
@@ -26,7 +36,29 @@
   border-left: none; /* Prevent double borders */
   cursor: pointer;
 }
-#buttonSubmit:hover {
+.buttonClear {
+  width: 10%;
+  height: 2rem;
+  background: #2196F3;
+  color: white;
+  font-size: 15px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+  padding: 6px;
+  padding-left: 20px;
+  text-decoration: none;
+  padding-right: 20px;
+}
+
+.buttonSubmit:hover {
     background: #0b7dda;
   }
+
+.buttonClear:hover {
+  background: #0b7dda;
+  text-decoration: none;
+  color:white;
+}
   

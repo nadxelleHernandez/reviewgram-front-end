@@ -17,11 +17,34 @@ const defaultUser = {
 const CreateUser = ({ sendNewUser }) => {
   const [newUser, setNewUser] = useState(defaultUser);
   const passwordRef = useRef(null);
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const usernameRef = useRef(null);
 
   const validInput = () => {
+    if (newUser.name === "") {
+      alert("Please provide a name");
+      nameRef.current.focus();
+      return false;
+    }
+    if (newUser.email === "") {
+      alert("Please provide an email");
+      emailRef.current.focus();
+      return false;
+    }
+    if (newUser.password === "") {
+      alert("Please provide a password");
+      passwordRef.current.focus();
+      return false;
+    }
     if (newUser.password !== newUser.checkPassword) {
       alert("Passwords aren't the same");
       passwordRef.current.focus();
+      return false;
+    }
+    if (newUser.username === "") {
+      alert("Please provide a username");
+      usernameRef.current.focus();
       return false;
     }
     return true;
@@ -61,6 +84,7 @@ const CreateUser = ({ sendNewUser }) => {
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
+                    ref={nameRef}
                     name="name"
                     type="text"
                     placeholder="Your Name"
@@ -79,6 +103,7 @@ const CreateUser = ({ sendNewUser }) => {
                 </Form.Label>
                 <Col sm={10}>
                   <Form.Control
+                    ref={emailRef}
                     name="email"
                     type="email"
                     placeholder="Email"
@@ -136,6 +161,7 @@ const CreateUser = ({ sendNewUser }) => {
                 <Col sm={10}>
                   <Form.Control
                     type="text"
+                    ref={usernameRef}
                     name="username"
                     placeholder="Your name in ReviewGram"
                     value={newUser.username}
