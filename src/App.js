@@ -289,10 +289,13 @@ function App() {
   const getSearchData = (search_for) => {
     getSearchDataFromAPI(search_for).then((response) => {
       if (response.statuscode !== 200) {
-        //manage error
+        alert(`There was an error while searching \n ${response.message}`);
         console.log("Error getting search data");
       } else {
         const search_result = response.data;
+        if (search_result.length === 0) {
+          alert("No search results available");
+        }
         for (let entry of search_result) {
           if (entry.poster_url) {
             entry.poster_url = `${imageUrl}w342${entry.poster_url}`;
