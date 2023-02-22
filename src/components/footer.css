@@ -1,0 +1,18 @@
+.footer {
+    margin-top: 10px;
+    text-align: right;
+  }
+
+.tmdb-logo {
+    width: 200px;
+}
+
+.tmdb-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.creators {
+    text-align: left;
+}

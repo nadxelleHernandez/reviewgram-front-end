@@ -12,17 +12,13 @@ const MediaEntry = ({ media }) => {
     media_type = "tv";
   }
   return (
-    // <div id="title">
-    //   <Link to={`/${media_type}/${media.TMDB_id}`}>
-    //     {media.isMovie ? media.title : media.name}
-    //   </Link>
-    //   <span> Rating: {media.rating}</span>
-    // </div>
-
-    <Link to={`/${media_type}/${media.TMDB_id}`}>
+    <Link
+      className="text-dark text-decoration-none"
+      to={`/${media_type}/${media.TMDB_id}`}
+    >
       <Card style={{ width: "10rem", height: "25rem" }}>
         <Card.Img variant="top" src={media.poster_url} alt="top media" />
-        <Card.Body>
+        <Card.Body className="text-center">
           <Card.Title>{media.isMovie ? media.title : media.name}</Card.Title>
           <Card.Subtitle>
             <MediaRating rating={media.rating} size="small"></MediaRating>
