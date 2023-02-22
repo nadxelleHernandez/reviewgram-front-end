@@ -202,6 +202,7 @@ function App() {
         console.log("Validating user succeded");
         const token = response.token;
         const user = response.user;
+        navigate("/", { replace: true });
         setUser({ token, user });
         return response.token;
       }
