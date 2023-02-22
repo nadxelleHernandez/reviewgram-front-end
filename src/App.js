@@ -288,6 +288,7 @@ function App() {
   };
 
   const getSearchData = (search_for) => {
+    console.log("In search data");
     getSearchDataFromAPI(search_for).then((response) => {
       if (response.statuscode !== 200) {
         alert(`There was an error while searching \n ${response.message}`);
