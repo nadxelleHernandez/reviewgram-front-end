@@ -11,6 +11,7 @@ import UserList from "./routes/userList";
 import NavigationBar from "./components/navigationBar";
 import UserDetails from "./routes/user-details";
 import CreateUser from "./routes/create-user";
+import Footer from "./components/footer";
 
 const baseURL = process.env.REACT_APP_BACKEND_URL;
 let imageUrl = "";
@@ -383,6 +384,7 @@ function App() {
         handleLogin={doLogin}
         logOut={logOut}
       ></NavigationBar>
+
       <Routes>
         <Route
           path="/UserList/:user_id"
@@ -438,6 +440,8 @@ function App() {
           element={<CreateUser sendNewUser={sendNewUser} />}
         />
       </Routes>
+
+      <Footer></Footer>
     </>
   );
 }
