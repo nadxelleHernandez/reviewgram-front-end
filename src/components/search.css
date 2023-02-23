@@ -33,8 +33,8 @@
   font-size: 15px;
   border: 1px solid grey;
   border-radius: 5px;
-  border-left: none; /* Prevent double borders */
   cursor: pointer;
+  margin-left: 10px;
 }
 .buttonClear {
   width: 10%;
@@ -44,12 +44,12 @@
   font-size: 15px;
   border: 1px solid grey;
   border-radius: 5px;
-  border-left: none; /* Prevent double borders */
   cursor: pointer;
-  padding: 5px;
+  padding: 6px;
   padding-left: 20px;
   text-decoration: none;
   padding-right: 20px;
+  margin-left: 10px;
 }
 
 .buttonSubmit:hover {
