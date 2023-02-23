@@ -4,7 +4,7 @@ import TimeStamp from "./TimeStamp";
 
 const ReviewsList = ({ reviews }) => {
   let reviewsDisplay = [];
-  if (reviews.length === 0) {
+  if (reviews === null || reviews === undefined || reviews.length === 0) {
     reviewsDisplay = <ListGroup.Item as="li">No reviews yet</ListGroup.Item>;
   } else {
     reviewsDisplay = reviews.map((review) => {
