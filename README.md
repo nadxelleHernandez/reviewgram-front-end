@@ -1,7 +1,17 @@
-# Reviewgram front-end in React 
+# Reviewgram front-end in React, React Router and Bootstrap
 Repo for front-end of reviewgram - a full stack webpage for finding reviews and ratings of TV shows and movies
 
 Uses axios to made API calls
+
+ReviewGram lets you search for movies and tv shows and results are powered by the TMDB (https://www.themoviedb.org/) API 
+
+It also displays the top trending movies and tv shows.
+It shows detailed information about each result which includes Rating, Reviews, Language,
+Release Date/First Air Date/Last Air Date, Genres, Runtime, and Number of Seasons/Number of Episodes.
+
+Users can add media they want to watch to their Watchlist. They can maintain a Watched list with their own rating and review of the movie/show. They can view their Watchlist or Watchedlist on MyLists page. 
+
+Users can sign up for an account, Login, View/Add items to thir lists, View/Add reviews, and Logout.
 
 # Created with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
