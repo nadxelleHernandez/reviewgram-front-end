@@ -2,7 +2,7 @@ import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import Nav from "react-bootstrap/Nav";
 import AddReviewForm from "./addReviewForm";
-import MediaRating from "./mediarating";
+import MediaRating from "../media-components/mediarating";
 import "./reviews.css";
 import ReviewsList from "./reviewsList";
 

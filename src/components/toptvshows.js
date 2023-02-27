@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Col } from "react-bootstrap";
 import TVShowData from "../models/TVShowData";
-import MediaEntry from "./mediaentry";
+import MediaEntry from "./media-components/mediaentry";
 
 const defaultTVShow = new TVShowData(
   0,

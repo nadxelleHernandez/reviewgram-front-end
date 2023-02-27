@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import MediaEntry from "../components/mediaentry";
+import MediaEntry from "../components/media-components/mediaentry";
 import Container from "react-bootstrap/Container";
 import { Col } from "react-bootstrap";
 

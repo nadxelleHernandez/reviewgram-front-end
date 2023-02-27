@@ -1,8 +1,8 @@
 import React from "react";
-import Search from "../components/search";
+import Search from "../components/search-components/search";
 import TopTVShows from "../components/toptvshows";
 import TopMovies from "../components/topmovies";
-import SearchResults from "../components/searchResults";
+import SearchResults from "../components/search-components/searchResults";
 import "./main.css";
 import Container from "react-bootstrap/Container";
 

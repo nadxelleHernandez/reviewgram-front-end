@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import MovieData from "../models/movieData";
-import MediaEntry from "./mediaentry";
+import MediaEntry from "./media-components/mediaentry";
 
 const defaultMovie = new MovieData(
   0,

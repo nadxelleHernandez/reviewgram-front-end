@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Card, Row, Col, Button } from "react-bootstrap";
-import MediaRating from "./mediarating";
+import MediaRating from "../media-components/mediarating";
 
 const SearchResult = ({ media }) => {
   const linkToGo = media.isMovie

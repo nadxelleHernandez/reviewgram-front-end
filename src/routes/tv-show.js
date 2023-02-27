@@ -3,12 +3,12 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import TVShowData from "../models/TVShowData";
-import Reviews from "../components/reviews";
+import Reviews from "../components/review-components/reviews";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import AlertModal from "../components/alertModal";
-import TVShowDetails from "../components/tvshowdetails";
+import TVShowDetails from "../components/media-components/tvshowdetails";
 
 const defaultShow = new TVShowData(
   0,

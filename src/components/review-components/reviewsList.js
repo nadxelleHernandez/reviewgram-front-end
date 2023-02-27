@@ -1,4 +1,4 @@
-import MediaRating from "./mediarating";
+import MediaRating from "../media-components/mediarating";
 import ListGroup from "react-bootstrap/ListGroup";
 import TimeStamp from "./TimeStamp";
 
