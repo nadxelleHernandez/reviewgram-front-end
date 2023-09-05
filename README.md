@@ -1,7 +1,7 @@
 # Reviewgram front-end in React, React Router and Bootstrap
 Repo for front-end of reviewgram - a full stack webpage for finding reviews and ratings of TV shows and movies
 
-Uses axios to made API calls
+Made with React and axios library to made API calls
 
 ReviewGram lets you search for movies and tv shows and results are powered by the TMDB (https://www.themoviedb.org/) API 
 
